@@ -1,4 +1,5 @@
 === Plugin Name ===
+Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: watermark, images, upload, Post, admin
 Requires at least: 2.9
