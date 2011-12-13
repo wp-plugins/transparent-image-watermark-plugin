@@ -2,7 +2,7 @@
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: watermark, images, upload, Post, admin
 Requires at least: 2.9
-Tested up to: 3.2.1
+Tested up to: 3.3
 Stable tag: 1.0
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
