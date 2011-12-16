@@ -16,6 +16,7 @@ The user friendly settings page allows for control over the appearance of your w
 You can set your watermarks to always be a specific percentage of the target image.
 
 Developer Website: http://MyWebsiteAdvisor.com
+
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
 
@@ -47,6 +48,8 @@ Please specify as much information as you can to help me debug the problem. Chec
 = Error message says that I don't have GD extension installed =
 
 Contact your hosting provider and ask them to enable GD extension for your host,  GD extension is required for watermarking.
+
+Developer Website: http://MyWebsiteAdvisor.com
 
 
 == Screenshots ==
