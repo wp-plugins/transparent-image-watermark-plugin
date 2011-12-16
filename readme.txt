@@ -8,11 +8,15 @@ Stable tag: 1.0
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
 
+
 == Description ==
 
 This plugin allows you to watermark your uploaded images using a PNG image file with transparency.
 The user friendly settings page allows for control over the appearance of your watermark.
 You can set your watermarks to always be a specific percentage of the target image.
+
+Developer Website: http://MyWebsiteAdvisor.com
+Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
 
 Requirements:
@@ -30,8 +34,9 @@ To-do:
 == Installation ==
 
 1. Upload `transparent-watermark/` to the `/wp-content/plugins/` directory.
-1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Go to Transparent Watermark settings and enable Transparent Watermark Plugin.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Go to Transparent Watermark settings and enable Transparent Watermark Plugin.
+
 
 == Frequently Asked Questions ==
 
