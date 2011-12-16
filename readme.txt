@@ -19,6 +19,8 @@ Developer Website: http://MyWebsiteAdvisor.com
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
+Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
+
 
 Requirements:
 
@@ -49,7 +51,9 @@ Please specify as much information as you can to help me debug the problem. Chec
 
 Contact your hosting provider and ask them to enable GD extension for your host,  GD extension is required for watermarking.
 
+
 Developer Website: http://MyWebsiteAdvisor.com
+
 
 
 == Screenshots ==
