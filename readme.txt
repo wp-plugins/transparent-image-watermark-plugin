@@ -1,7 +1,7 @@
 === Plugin Name ===
 Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
-Tags: Watermark, Images, Upload, Post, Admin, PNG Watermark, Transparent Watermark
+Tags: Watermark, Images, Image, Picture, Pictures, Photo, Phtots, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
 Tested up to: 3.3
 Stable tag: 1.0
