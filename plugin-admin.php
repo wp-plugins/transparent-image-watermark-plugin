@@ -92,7 +92,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 		add_action('admin_print_styles-' . $plugin_page,     array(&$this, 'installStyles'));
 	
 		// also add JS to media upload popup
-		add_action('admin_print_scripts-media-upload-popup', array(&$this, 'installScripts'));
+		//add_action('admin_print_scripts-media-upload-popup', array(&$this, 'installScripts'));
 	}
 	
 	/**
