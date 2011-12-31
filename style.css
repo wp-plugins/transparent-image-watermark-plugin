@@ -1,0 +1,32 @@
+#watermark_position td {
+	border: 1px solid #DFDFDF;	
+}
+
+select[name="watermark_text[font]"] option {
+	font-size: 14pt;
+}
+
+fieldset.wr_width, .wr_width {
+	width: 600px;
+}
+
+td.wr_width {
+	width: 600px;	
+}
+
+.wr_width [name="watermark_text[value]"], .wr_width [name="watermark_text[font]"] {
+	width: 100%;	
+}
+
+.wr_width [name="watermark_text[color]"] {
+	width: 55px;	
+}
+
+.wr_right {
+	width: none;
+	text-align: right;
+}
+
+.form-table, .form-table th.nowidth {
+	width: auto;	
+}
