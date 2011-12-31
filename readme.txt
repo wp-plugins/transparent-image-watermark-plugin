@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
 Tested up to: 3.3
-Stable tag: 1.1
+Stable tag: 1.2
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
 
@@ -77,9 +77,12 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 == Changelog ==
 
+= 1.2 =
+* Minor cleanup and optimization.
+
 
 = 1.1 =
-* Fixed minor bug causing warning message about "installScripts" function;
+* Fixed minor bug causing warning message about "installScripts" function.
 
 
 = 1.0 =

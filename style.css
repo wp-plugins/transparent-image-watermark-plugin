@@ -7,11 +7,11 @@ select[name="watermark_text[font]"] option {
 }
 
 fieldset.wr_width, .wr_width {
-	width: 260px;
+	width: 600px;
 }
 
 td.wr_width {
-	width: 360px;	
+	width: 600px;	
 }
 
 .wr_width [name="watermark_text[value]"], .wr_width [name="watermark_text[font]"] {

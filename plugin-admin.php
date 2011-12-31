@@ -213,7 +213,20 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							
 							</fieldset>
 						</td>
-						<th scope="row" class="nowidth">Preview</th>
+						
+					</tr>
+					
+					<tr valign="top">
+						<th scope="row">Watermark Preview</th>
+						<td class="wr_width">
+							<fieldset class="wr_width">
+							<legend class="screen-reader-text"><span>Watermark Preview</span></legend>
+	
+								<img id="previewImg_image" src="<? echo $watermark_image['url']; ?>" alt="" width="300" />
+							
+							</fieldset>
+						</td>
+						
 					</tr>
 
 					<tr valign="top">
@@ -226,9 +239,22 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							
 							</fieldset>
 						</td>
-						<td rowspan="3">
-							<img id="previewImg_image" src="<? echo $watermark_image['url']; ?>" alt="" width="300" />
+						
+					</tr>
+					
+				
+										
+					<tr valign="top">
+						<th scope="row">Enable Watermark Resampling (Higher Quality Watermark)</th>
+						<td class="wr_width">
+							<fieldset class="wr_width">
+							<legend class="screen-reader-text"><span>Enable Watermark Resampling</span></legend>
+	
+								Enable : <input name="watermark_resampling" type="checkbox" size="50" value="true"  disabled="disabled" />
+								(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)
+							</fieldset>
 						</td>
+						
 					</tr>
 					
 
