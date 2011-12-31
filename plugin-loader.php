@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Transparent Image Watermark
-Plugin URI: http://MyWebsiteAdvisor.com
+Plugin URI: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 Description: Add transparent PNG image watermark to your uploaded images.
-Version: 1.0
+Version: 1.1
 Author: MyWebsiteAdvisor
 Author URI: http://MyWebsiteAdvisor.com
 */
@@ -27,6 +27,8 @@ if ( version_compare( phpversion(), '5.0', '>=') ) {
 
 	require_once(dirname(__FILE__) . '/transparent-watermark.php');
 	require_once(dirname(__FILE__) . '/plugin-admin.php');
+	
+	$watermark = new Transparent_Watermark_Admin();
 
 }
 ?>

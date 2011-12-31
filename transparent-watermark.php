@@ -35,8 +35,6 @@ class Transparent_Watermark {
 	 * @var string
 	 */
 	protected $_settings_url        = null;
-	
-
 
 	
 	/**
@@ -102,39 +100,7 @@ class Transparent_Watermark {
 		}
 	}
 	
-	/**
-	 * Create preview for admin
-	 *
-	 * @param array $opt
-	 */
-	public function createPreview(array $opt) {
-		// merge custom settings with default settings
-		$opt = $this->mergeConfArray($this->_options, $opt);
-		
-		// calculate required size of image
-		$bbox = $this->calculateBBox($opt);
-		$size = array(
-			'width'  => $bbox['width']  + $this->_options['watermark_offset']['x'] * 2,
-			'height' =>	$bbox['height'] + $this->_options['watermark_offset']['y'] * 2
-		);
-
-		// Create the image
-		$image = imagecreatetruecolor($size['width'], $size['height']);
-
-		// Add some background to image (#CCCCCC)
-		$color = imagecolorallocate($image, 204, 204, 204);
-		imagefilledrectangle($image, 0, 0, $size['width'], $size['height'], $color);
-		
-		// And finaly write text to image
-		$this->imageAddText($image, $opt);
-		
-		// Set the content-type
-		header('Content-type: image/png');
-		
-		// Output the image using imagepng()
-		imagepng($image);
-		imagedestroy($image);
-	}
+	
 	
 	/**
 	 * Apply watermark to selected image sizes
@@ -171,6 +137,7 @@ class Transparent_Watermark {
 		// pass forward attachment metadata
 		return $data;
 	}
+	
 	
 	/**
 	 * Apply watermark to certain image
@@ -213,11 +180,6 @@ class Transparent_Watermark {
 		// get size and url of watermark
 		$size  =  $opt['watermark_image']['width'] / 100;
 		$url  =  $opt['watermark_image']['url'];
-		
-		// calculate watermark position and get full path to font file
-		//$offset = $this->calculateOffset($image, $opt);
-		//$opt    = $this->getFontFullpath($opt);
-		
 		
 		$watermark = imagecreatefrompng("$url"); 
 		$watermark_width = imagesx($watermark);

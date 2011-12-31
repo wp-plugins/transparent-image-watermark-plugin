@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Transparent Image Watermark ===
 Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
@@ -59,6 +59,11 @@ Contact your hosting provider and ask them to enable GD extension for your host,
 
 
 Developer Website: http://MyWebsiteAdvisor.com
+
+Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
+
+Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
+
 
 
 

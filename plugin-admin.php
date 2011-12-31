@@ -35,15 +35,10 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			
 			header("Location: " . $this->_settings_url);
 			die();	
-		// if user requested preview display preview image
-		} elseif(array_key_exists('watermarkPreview', $_GET)) {
-			//$this->createPreview($_GET);
-			//die();
+
 		} else {
 			// register installer function
 			register_activation_hook(TW_LOADER, array(&$this, 'activateWatermark'));
-			
-
 			
 			// add plugin "Settings" action on plugin list
 			add_action('plugin_action_links_' . plugin_basename(TW_LOADER), array(&$this, 'add_plugin_actions'));
@@ -90,9 +85,6 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 		$plugin_page = add_options_page('Transparent Watermark Plugin Options', 'Transparent Watermark', 8, __FILE__, array(&$this, 'optionsPage'));
 
 		add_action('admin_print_styles-' . $plugin_page,     array(&$this, 'installStyles'));
-	
-		// also add JS to media upload popup
-		//add_action('admin_print_scripts-media-upload-popup', array(&$this, 'installScripts'));
 	}
 	
 	/**
@@ -102,8 +94,6 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 		wp_enqueue_style('transparent-watermark', WP_PLUGIN_URL . $this->_plugin_dir . 'style.css');
 	}
 	
-
-
 
 	
 	/**
@@ -257,5 +247,5 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	}
 }
 
-$watermark = new Transparent_Watermark_Admin();
+
 ?>
