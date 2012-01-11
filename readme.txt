@@ -3,7 +3,7 @@ Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
-Tested up to: 3.3
+Tested up to: 3.3.1
 Stable tag: 1.2
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
