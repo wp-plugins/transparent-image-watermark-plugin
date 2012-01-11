@@ -27,6 +27,10 @@ Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-ima
 
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
+We are looking for testimonials and live examples of our plugins on your website!
+Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials
+If we choose your testimonial or website we can link to your site and generate some free traffic for you!
+
 
 Requirements:
 
@@ -64,7 +68,9 @@ Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-ima
 
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
-
+We are looking for testimonials and live examples of our plugins on your website!
+Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials
+If we choose your testimonial or website we can link to your site and generate some free traffic for you!
 
 
 == Screenshots ==
