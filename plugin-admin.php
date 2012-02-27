@@ -1,4 +1,4 @@
-<?
+<?php
 
 class Transparent_Watermark_Admin extends Transparent_Watermark {
 	/**
@@ -113,6 +113,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			$this->_messages['updated'][] = 'Options updated!';
 		}
 
+
 		if( !extension_loaded( 'gd' ) ) {
 			$this->_messages['error'][] = 'Transparent Watermark Plugin will not work without PHP extension GD.';
 		}
@@ -210,7 +211,11 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							<legend class="screen-reader-text"><span>Watermark Image URL</span></legend>
 	
 								<input name="watermark_image[url]" type="text" size="50" value="<?php echo $watermark_image['url']; ?>" />
-							
+								<?php if(substr($watermark_image['url'], -4, 4) != '.png'){ 
+									echo "ERROR: Image should be a .png file!<br>";
+									echo "We offer Premium versions of this plugin which support other image types! <a href='' target='_blank'>Click Here for More Info.</a>";
+									} 
+								?>
 							</fieldset>
 						</td>
 						
@@ -222,7 +227,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							<fieldset class="wr_width">
 							<legend class="screen-reader-text"><span>Watermark Preview</span></legend>
 	
-								<img id="previewImg_image" src="<? echo $watermark_image['url']; ?>" alt="" width="300" />
+								<img id="previewImg_image" src="<?php echo $watermark_image['url']; ?>" alt="" width="300" />
 							
 							</fieldset>
 						</td>
