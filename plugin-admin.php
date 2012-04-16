@@ -40,9 +40,11 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			// register installer function
 			register_activation_hook(TW_LOADER, array(&$this, 'activateWatermark'));
 			
-			
-			add_filter('attachment_fields_to_edit', array(&$this, 'attachment_field_add_watermark'), 10, 2);
-			
+
+			$show_on_upload_screen = $this->get_option('show_on_upload_screen');			 
+			if($show_on_upload_screen === "true"){	
+				add_filter('attachment_fields_to_edit', array(&$this, 'attachment_field_add_watermark'), 10, 2);
+			}
 			
 			// add plugin "Settings" action on plugin list
 			add_action('plugin_action_links_' . plugin_basename(TW_LOADER), array(&$this, 'add_plugin_actions'));
@@ -266,7 +268,19 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 						
 					</tr>
 					
-
+					<tr valign="top">
+						<th scope="row">Show Preview of Advanced Watermark Features on Upload Screen</th>
+						<td class="wr_width">
+							<fieldset class="wr_width">
+							<legend class="screen-reader-text"><span>Enable Advanced Features Preview</span></legend>
+								<?php $show_on_upload_screen = $this->get_option('show_on_upload_screen'); ?>
+								
+								Enable :<?php echo $show_on_upload_screen; ?>  <input name="show_on_upload_screen" type="checkbox" size="50" value='true'  <?php if($show_on_upload_screen === "true"){echo "checked='checked'";}  ?>  />
+								(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)
+							</fieldset>
+						</td>
+						
+					</tr>
 					
 				</table>
 			</div>
@@ -416,8 +430,20 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
             			'input'      => 'html',
             			'html'       => $form_html);
                          
-                                               
-                         return $form_fields;                            
+                               
+							   
+							   
+					$show_on_upload_screen = $this->get_option('show_on_upload_screen');
+							 
+						if($show_on_upload_screen === "true"){	   
+							                   
+                         	return $form_fields;   
+							   
+						}else{
+						
+							return "";
+							
+						}                      
                                                   
                                                   
                 } else {
