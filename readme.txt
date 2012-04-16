@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
 Tested up to: 3.3.1
-Stable tag: 1.3
+Stable tag: 1.5
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
 
@@ -55,7 +55,7 @@ To-do:
 
 = Plugin doesn't work ... =
 
-Please specify as much information as you can to help me debug the problem. Check in your error.log if you can.
+Please specify as much information as you can to help me debug the problem. Check in your error.log if you can. Please send screenshots as well as a detailed description of the problem.
 
 = Error message says that I don't have GD extension installed =
 
@@ -87,6 +87,13 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 == Changelog ==
+
+= 1.5 =
+* added option to turn off advanced features preview on upload screen.
+
+= 1.4 =
+* added image preview similar to ultra version.
+
 
 = 1.3 =
 * added better error checking on image upload types

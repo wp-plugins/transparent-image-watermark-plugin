@@ -6,7 +6,7 @@ class Transparent_Watermark {
 	 *
 	 * @var string
 	 */
-	public $version                 = '1.3';
+	public $version                 = '1.5';
 	
 	/**
 	 * Array with default options
@@ -14,6 +14,7 @@ class Transparent_Watermark {
 	 * @var array
 	 */
 	protected $_options             = array(
+		'show_on_upload_screen' => true,
 		'watermark_on'       => array(),
 		'watermark_type' =>	'image',
 		'watermark_image'	=> array(

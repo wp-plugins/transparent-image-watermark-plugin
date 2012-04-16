@@ -40,6 +40,12 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			// register installer function
 			register_activation_hook(TW_LOADER, array(&$this, 'activateWatermark'));
 			
+
+			$show_on_upload_screen = $this->get_option('show_on_upload_screen');			 
+			if($show_on_upload_screen === "true"){	
+				add_filter('attachment_fields_to_edit', array(&$this, 'attachment_field_add_watermark'), 10, 2);
+			}
+			
 			// add plugin "Settings" action on plugin list
 			add_action('plugin_action_links_' . plugin_basename(TW_LOADER), array(&$this, 'add_plugin_actions'));
 			
@@ -262,7 +268,19 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 						
 					</tr>
 					
-
+					<tr valign="top">
+						<th scope="row">Show Preview of Advanced Watermark Features on Upload Screen</th>
+						<td class="wr_width">
+							<fieldset class="wr_width">
+							<legend class="screen-reader-text"><span>Enable Advanced Features Preview</span></legend>
+								<?php $show_on_upload_screen = $this->get_option('show_on_upload_screen'); ?>
+								
+								Enable :<?php echo $show_on_upload_screen; ?>  <input name="show_on_upload_screen" type="checkbox" size="50" value='true'  <?php if($show_on_upload_screen === "true"){echo "checked='checked'";}  ?>  />
+								(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)
+							</fieldset>
+						</td>
+						
+					</tr>
 					
 				</table>
 			</div>
@@ -276,6 +294,163 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 </div>
 <?php
 	}
+	
+	
+	
+	
+	
+	
+
+	public function attachment_field_add_watermark($form_fields, $post){
+    		if ($post->post_mime_type == 'image/jpeg' || $post->post_mime_type == 'image/gif' || $post->post_mime_type == 'image/png') {
+                       
+                        $ajax_url = "../".PLUGINDIR . "/". dirname(plugin_basename (__FILE__))."/watermark_ajax.php";     
+                        $image_url = $post->guid;                          
+                                                  
+                       	$form_html = "<h3>Transparent Watermark</h3>"; 
+                                                  
+                         $form_html .= "<style>#watermark_preview{
+                          position:absolute;
+                                      border:1px solid #ccc;
+                                      background:#333;
+                                      padding:5px;
+                                      display:none;
+                                                                             
+                                      color:#fff;
+                            }
+                             #watermark_preview img{
+                      
+                                       max-width:300px;  
+									  max-height:300px;                                         
+                              
+                              }                                         
+                      </style>";    
+                                                  
+                        $form_html .= "<script type='text/javascript' src='"."../".PLUGINDIR . "/". dirname(plugin_basename (__FILE__))."/watermark.js'></script>";                        
+                        $form_html .= "<script type='text/javascript'>
+                                          function image_add_watermark(){
+                                                  
+                                                  alert('Sorry, This feature is only available in the Ultra Version!  Please Upgrade at http://MyWebsiteAdvisor.com');
+						window.open('http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/');
+                                                                                                      
+                                                  
+                                          }
+                  
+                  
+                  			jQuery(document).ready(function(){
+                                              imagePreview();
+                                      });
+                                                                                        
+                                      </script>";                          
+                                                
+			
+                                                  
+                          
+                       $attachment_info =  wp_get_attachment_metadata($post->ID);        
+                        
+                       $sizes = array();                           
+                                                  
+                      foreach($attachment_info['sizes'] as $size){
+                        
+                        $sizes[$size['width']] = $size;
+                        
+                        
+                      }
+                                                  
+                        //$sizes = array_unique($sizes);
+                  	krsort($sizes);
+                  
+                  
+                  
+                  
+                  
+                  	$upload_dir   = wp_upload_dir();
+                  
+                  	$url_info = parse_url($post->guid);
+  			$url_info['path'] = ereg_replace("/wp-content/uploads/", "/", $url_info['path']);
+  
+  			$filepath = $upload_dir['basedir']  . $url_info['path'];
+
+                  
+                    	 //$url_info = parse_url($post->guid);
+                  	$path_info = pathinfo($url_info['path']);
+                  	
+                  	$base_filename = $path_info['basename'];
+                  	$base_path = ereg_replace($base_filename, "", $post->guid);
+                  
+ 			 //$url_info['path'] = ereg_replace("/wp-content/uploads/", "/", $url_info['path']);
+                  
+                  
+                  
+                  $watermark_horizontal_location = $this->get_option('watermark_horizontal_location');
+                  $watermark_vertical_location = $this->get_option('watermark_vertical_location');
+                  $watermark_image = $this->get_option('watermark_image');
+                  $watermark_width = $watermark_image['width'];
+                  
+                  
+                  $form_html .= "<p>Vertical Position: ";
+                  $form_html .= "<input id='watermark_vertical_location' value='$watermark_vertical_location' type='text'  size='5' style='width:50px !important;' />%<br />";
+		  $form_html .= "(Example: 50 would mean that the image is centered vertically, 10 would mean it is 10% from the top.)</p>";
+                  
+                  
+  		  $form_html .= "<p>Horizontal Position: ";
+                  $form_html .= "<input id='watermark_horizontal_location' value='$watermark_horizontal_location' type='text' size='5' style='width:50px !important;'  />%<br />";
+		  $form_html .= "(Example: 50 would mean that the image is centered horizontally, 10 would mean it is 10% from the left.)</p>";
+                  
+                  
+  		  $form_html .= "<p>Watermark Width: ";
+                  $form_html .= "<input id='watermark_width' value='$watermark_width' type='text' size='5' style='width:50px !important;'  />%<br />";
+		  $form_html .= "(Example: 50 would mean that the watermark will be 50% of the width of the image being watermarked.)</p>";
+                  
+                  
+                  $form_html .= "<div id='attachment_sizes'>";
+                  
+  		$form_html .= "<p><input type='checkbox' name='attachment_size[]' class='attachment_size' value='".$post->guid."'>";
+                $form_html .= "Original - <a class='watermark_preview' href='".$post->guid."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
+                  
+                  foreach($sizes as $size){
+                    
+                    	$form_html .= "<p><input type='checkbox' name='attachment_size[]' class='attachment_size' value='".$base_path.$size['file']."'>";
+                    	$form_html .= $size['width'] . "x" . $size['height'] . " - <a class='watermark_preview' title='".$size['file']." Preview'  href='".$base_path.$size['file']."' target='_blank'>" . $size['file'] . "</a></p>";
+                    
+  
+                  }
+                  
+                  $form_html .= "</div>";
+                  
+                  
+                  
+                  $form_html .= "<div id='watermark_button_container'><input type='button' class='button-primary' name='Add Watermark' value='Add Watermark' onclick='image_add_watermark();'></div>";
+                  
+                       //$form_html .= "<pre>" . print_r($sizes, true) . "</pre>";                           
+                                                  
+                                                  
+                        $form_fields['image-watermark']  = array(
+            			'label'      => __('Watermark', 'transparent_watermark_ultra'),
+            			'input'      => 'html',
+            			'html'       => $form_html);
+                         
+                               
+							   
+							   
+					$show_on_upload_screen = $this->get_option('show_on_upload_screen');
+							 
+						if($show_on_upload_screen === "true"){	   
+							                   
+                         	return $form_fields;   
+							   
+						}else{
+						
+							return "";
+							
+						}                      
+                                                  
+                                                  
+                } else {
+                 	return false; 
+                }
+    	}                    
+
 }
 
 
