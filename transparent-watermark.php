@@ -6,7 +6,7 @@ class Transparent_Watermark {
 	 *
 	 * @var string
 	 */
-	public $version                 = '1.5';
+	public $version                 = '1.6';
 	
 	/**
 	 * Array with default options
@@ -252,7 +252,7 @@ class Transparent_Watermark {
 	private function saveImageFile($image, $mime_type, $filepath) {
 		switch ( $mime_type ) {
 			case 'image/jpeg':
-				return imagejpeg($image, $filepath, apply_filters( 'jpeg_quality', 90 ));
+				return imagejpeg($image, $filepath, 100);
 			case 'image/png':
 				return imagepng($image, $filepath);
 			case 'image/gif':
