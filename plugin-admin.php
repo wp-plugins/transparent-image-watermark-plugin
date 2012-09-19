@@ -77,7 +77,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	 */
 	public function add_plugin_links($links, $file) {
 		if($file == plugin_basename(TW_LOADER)) {
-			$links[] = '<a href="http://MyWebsiteAdvisor.com">Visit Us Online</a>';
+			$links[] = '<a href="http://MyWebsiteAdvisor.com/">Visit Us Online</a>';
 		}
 		
 		return $links;
@@ -100,6 +100,31 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 		wp_enqueue_style('transparent-watermark', WP_PLUGIN_URL . $this->_plugin_dir . 'style.css');
 	}
 	
+
+
+
+
+	function HtmlPrintBoxHeader($id, $title, $right = false) {
+		
+		?>
+		<div id="<?php echo $id; ?>" class="postbox">
+			<h3 class="hndle"><span><?php echo $title ?></span></h3>
+			<div class="inside">
+		<?php
+		
+		
+	}
+	
+	function HtmlPrintBoxFooter( $right = false) {
+		?>
+			</div>
+		</div>
+		<?php
+		
+	}
+
+
+
 
 	
 	/**
@@ -142,6 +167,72 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	<div id="icon-options-general" class="icon32"><br /></div>
 	<h2>Transparent Watermark Plugin Settings</h2>
 		<form method="post" action="">
+		
+		
+			<div id="poststuff" class="metabox-holder has-right-sidebar">
+		<div class="inner-sidebar">
+			<div id="side-sortables" class="meta-box-sortabless ui-sortable" style="position:relative;">
+			
+<?php $this->HtmlPrintBoxHeader('pl_diag',__('Plugin Diagnostic Check','diagnostic'),true); ?>
+
+				<?
+				
+				echo "<p>Server OS: ".PHP_OS."</p>";
+						
+				echo "<p>Required PHP Version: 5.0+<br>";
+				echo "Current PHP Version: " . phpversion() . "</p>";
+				
+				echo "<p>Memory Use: " . number_format(memory_get_usage()/1024/1024, 1) . " / " . ini_get('memory_limit') . "</p>";
+				
+				echo "<p>Peak Memory Use: " . number_format(memory_get_peak_usage()/1024/1024, 1) . " / " . ini_get('memory_limit') . "</p>";
+		
+
+				$gdinfo = gd_info();
+			
+				if($gdinfo){
+					echo '<p>GD Support Enabled!<br>';
+				}else{
+					echo "<p>Please Configure GD!</p>";
+				}
+				
+				?>
+
+<?php $this->HtmlPrintBoxFooter(true); ?>
+
+
+
+<?php $this->HtmlPrintBoxHeader('pl_resources',__('Plugin Resources','resources'),true); ?>
+	<p><a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
+	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Plugin Support</a></p>
+	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Suggest a Feature</a></p>
+<?php $this->HtmlPrintBoxFooter(true); ?>
+
+
+<?php $this->HtmlPrintBoxHeader('pl_upgrades',__('Plugin Upgrades','upgrades'),true); ?>
+	<p><b>Upgrade Transparent Watermark Plugin Today!</b></p>
+	<p>Premium Versions offer the ability to Manually Add Watermarks, Change Watermark Position, Add High Quality Watermarks, and Much More!</p>
+	<p>Click Here for <a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Upgrades</a></p>
+<?php $this->HtmlPrintBoxFooter(true); ?>
+
+
+</div>
+</div>
+
+
+
+	<div class="has-sidebar sm-padded" >			
+		<div id="post-body-content" class="has-sidebar-content">
+			<div class="meta-box-sortabless">
+								
+								
+				
+	
+		
+		<?php $this->HtmlPrintBoxHeader('wm_type',__('Watermark Type','watermark-type'),false); ?>
+
+
+
+
 			<table class="form-table">
 
 				<tr valign="top">
@@ -219,7 +310,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 								<input name="watermark_image[url]" type="text" size="50" value="<?php echo $watermark_image['url']; ?>" />
 								<?php if(substr($watermark_image['url'], -4, 4) != '.png'){ 
 									echo "ERROR: Image should be a .png file!<br>";
-									echo "We offer Premium versions of this plugin which support other image types! <a href='' target='_blank'>Click Here for More Info.</a>";
+									echo "We offer Premium versions of this plugin which support other image types! <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Info.</a>";
 									} 
 								?>
 							</fieldset>
@@ -275,7 +366,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							<legend class="screen-reader-text"><span>Enable Advanced Features Preview</span></legend>
 								<?php $show_on_upload_screen = $this->get_option('show_on_upload_screen'); ?>
 								
-								Enable :<?php echo $show_on_upload_screen; ?>  <input name="show_on_upload_screen" type="checkbox" size="50" value='true'  <?php if($show_on_upload_screen === "true"){echo "checked='checked'";}  ?>  />
+								Enable :  <input name="show_on_upload_screen" type="checkbox" size="50" value='true'  <?php if($show_on_upload_screen === "true"){echo "checked='checked'";}  ?>  />
 								(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)
 							</fieldset>
 						</td>
@@ -289,6 +380,10 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			<p class="submit">
 				<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
 			</p>
+			
+			
+			<?php $this->HtmlPrintBoxFooter(true); ?>
+			
 
 		</form>
 </div>
