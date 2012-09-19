@@ -77,7 +77,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	 */
 	public function add_plugin_links($links, $file) {
 		if($file == plugin_basename(TW_LOADER)) {
-			$links[] = '<a href="http://MyWebsiteAdvisor.com">Visit Us Online</a>';
+			$links[] = '<a href="http://MyWebsiteAdvisor.com/">Visit Us Online</a>';
 		}
 		
 		return $links;
@@ -177,14 +177,15 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 
 				<?
 				
+				echo "<p>Server OS: ".PHP_OS."</p>";
+						
 				echo "<p>Required PHP Version: 5.0+<br>";
 				echo "Current PHP Version: " . phpversion() . "</p>";
 				
-				
-				
 				echo "<p>Memory Use: " . number_format(memory_get_usage()/1024/1024, 1) . " / " . ini_get('memory_limit') . "</p>";
 				
-
+				echo "<p>Peak Memory Use: " . number_format(memory_get_peak_usage()/1024/1024, 1) . " / " . ini_get('memory_limit') . "</p>";
+		
 
 				$gdinfo = gd_info();
 			
@@ -201,10 +202,18 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 
 
 <?php $this->HtmlPrintBoxHeader('pl_resources',__('Plugin Resources','resources'),true); ?>
-	<p><a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark' target='_blank'>Plugin Homepage</a></p>
-	<p><a href='http://mywebsiteadvisor.com/contact-us'  target='_blank'>Plugin Support</a></p>
-	<p><a href='http://mywebsiteadvisor.com/contact-us'  target='_blank'>Suggest a Feature</a></p>
+	<p><a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
+	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Plugin Support</a></p>
+	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Suggest a Feature</a></p>
 <?php $this->HtmlPrintBoxFooter(true); ?>
+
+
+<?php $this->HtmlPrintBoxHeader('pl_upgrades',__('Plugin Upgrades','upgrades'),true); ?>
+	<p><b>Upgrade Transparent Watermark Plugin Today!</b></p>
+	<p>Premium Versions offer the ability to Manually Add Watermarks, Change Watermark Position, Add High Quality Watermarks, and Much More!</p>
+	<p>Click Here for <a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Upgrades</a></p>
+<?php $this->HtmlPrintBoxFooter(true); ?>
+
 
 </div>
 </div>
@@ -301,7 +310,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 								<input name="watermark_image[url]" type="text" size="50" value="<?php echo $watermark_image['url']; ?>" />
 								<?php if(substr($watermark_image['url'], -4, 4) != '.png'){ 
 									echo "ERROR: Image should be a .png file!<br>";
-									echo "We offer Premium versions of this plugin which support other image types! <a href='' target='_blank'>Click Here for More Info.</a>";
+									echo "We offer Premium versions of this plugin which support other image types! <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Info.</a>";
 									} 
 								?>
 							</fieldset>
