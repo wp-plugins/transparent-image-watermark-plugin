@@ -3,8 +3,8 @@ Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
-Tested up to: 3.3.1
-Stable tag: 1.5
+Tested up to: 3.4.2
+Stable tag: 1.9
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
 
@@ -21,7 +21,7 @@ Check out the [Transparent Image Watermark for WordPress video](http://www.youtu
 http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
 
 
-Developer Website: http://MyWebsiteAdvisor.com
+Developer Website: http://MyWebsiteAdvisor.com/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
@@ -40,7 +40,6 @@ Requirements:
 
 To-do:
 
-* Change Location of Watermark.
 * Add the ability to turn off watermark when uploading an image.
 
 
@@ -67,14 +66,14 @@ Check out the [Transparent Image Watermark for WordPress video](http://www.youtu
 http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
 
 
-Developer Website: http://MyWebsiteAdvisor.com
+Developer Website: http://MyWebsiteAdvisor.com/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
 We are looking for testimonials and live examples of our plugins on your website!
-Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials
+Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials/
 If we choose your testimonial or website we can link to your site and generate some free traffic for you!
 
 
@@ -87,6 +86,22 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 == Changelog ==
+
+= 1.9 =
+* added to debug info panel, minor cleanup, fixed broken links
+
+
+= 1.8 =
+* updated image size selection option to resolve issue with non-standard or custom size images not having watermarks applied.
+
+
+= 1.7 =
+* fixed some broken links, other minor cleanup.
+
+
+= 1.6 =
+* improved appearance of plugin settings page, increased output quality of final watermarked image, added plugin diagnostic on settings page.
+
 
 = 1.5 =
 * added option to turn off advanced features preview on upload screen.
