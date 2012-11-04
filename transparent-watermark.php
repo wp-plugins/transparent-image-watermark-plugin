@@ -6,7 +6,7 @@ class Transparent_Watermark {
 	 *
 	 * @var string
 	 */
-	public $version                 = '1.8';
+	public $version                 = '1.9';
 	
 	/**
 	 * Array with default options

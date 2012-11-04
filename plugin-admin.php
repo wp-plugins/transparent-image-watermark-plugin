@@ -13,7 +13,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	 *
 	 * @var array
 	 */
-	private $_image_sizes         = array('thumbnail', 'medium', 'large', 'fullsize');
+	private $_image_sizes         = array('fullsize');
 	
 	
 	/**
@@ -219,6 +219,19 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 				echo "<p>Required PHP Version: 5.0+<br>";
 				echo "Current PHP Version: " . phpversion() . "</p>";
 				
+				
+				if( ini_get('safe_mode') ){
+					echo "<p><font color='red'>PHP Safe Mode is enabled!<br><b>Disable Safe Mode in php.ini!</b></font></p>";
+				}else{
+					echo "<p>PHP Safe Mode: is disabled!</p>";
+				}
+				
+				if( ini_get('allow_url_fopen')){
+					echo "<p>PHP allow_url_fopen: is enabled!</p>";
+				}else{
+					echo "<p><font color='red'>PHP allow_url_fopen: is disabled!<br><b>Enable allow_url_fopen in php.ini!</b></font></p>";
+				}
+				
 
 			
 				$gdinfo = gd_info();
@@ -249,6 +262,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	<p><a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
 	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Plugin Support</a></p>
 	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Suggest a Feature</a></p>
+	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Contact Us</a></p>
 <?php $this->HtmlPrintBoxFooter(true); ?>
 
 
@@ -258,12 +272,12 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	 -Manually Add Watermarks<br />
 	 -Change Watermark Position<br />
 	 -Add High Quality Watermarks<br />
-	 -and Much More!<br />
+	 -And Much More!<br />
 	 </p>
 	<p>Click Here for <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/' target='_blank'>More Watermark Plugins</a></p>
-	<p>-<a href='http://mywebsiteadvisor.com/wordpress-plugins/bulk-watermark/' target='_blank'>Bulk Watermark</a></p>
-	<p>-<a href='http://mywebsiteadvisor.com/wordpress-plugins/signature-watermark/' target='_blank'>Signature Watermark</a></p>
-	<p>-<a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Transparent Image Watermark</a></p>
+	<p>-<a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/bulk-watermark/' target='_blank'>Bulk Watermark</a></p>
+	<p>-<a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/signature-watermark/' target='_blank'>Signature Watermark</a></p>
+	<p>-<a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Transparent Image Watermark</a></p>
 <?php $this->HtmlPrintBoxFooter(true); ?>
 
 
@@ -271,7 +285,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	
 	<p><a href='http://mywebsiteadvisor.com/tools/premium-wordpress-plugins/'  target='_blank'>Premium WordPress Plugins!</a></p>
 	<p><a href='http://profiles.wordpress.org/MyWebsiteAdvisor/'  target='_blank'>Free Plugins on Wordpress.org!</a></p>
-	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/'  target='_blank'>Free Plugins on Our Website!</a></p>	
+	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/'  target='_blank'>Free Plugins on MyWebsiteAdvisor.com!</a></p>	
 				
 <?php $this->HtmlPrintBoxFooter(true); ?>
 
