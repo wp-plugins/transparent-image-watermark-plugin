@@ -55,6 +55,10 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			// push options page link, when generating admin menu
 			add_action('admin_menu', array(&$this, 'adminMenu'));
 	
+			//add help menu
+			add_filter('contextual_help', array(&$this,'adminHelp'), 10, 3);
+			
+			
 			// check if post_id is "-1", meaning we're uploading watermark image
 			if(!(array_key_exists('post_id', $_REQUEST) && $_REQUEST['post_id'] == -1)) {
 				// add filter for watermarking images
@@ -88,10 +92,60 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	 */
 	public function adminMenu() {		
 		// add option in admin menu, for setting details on watermarking
-		$plugin_page = add_options_page('Transparent Watermark Plugin Options', 'Transparent Watermark', 8, __FILE__, array(&$this, 'optionsPage'));
+		global $transparent_watermark_admin_page;
+		$transparent_watermark_admin_page = add_options_page('Transparent Watermark Plugin Options', 'Transparent Watermark', 8, __FILE__, array(&$this, 'optionsPage'));
 
-		add_action('admin_print_styles-' . $plugin_page,     array(&$this, 'installStyles'));
+		add_action('admin_print_styles-' . $transparent_watermark_admin_page,     array(&$this, 'installStyles'));
 	}
+	
+	
+	public function adminHelp($contextual_help, $screen_id, $screen){
+	
+		global $transparent_watermark_admin_page;
+		
+		if ($screen_id == $transparent_watermark_admin_page) {
+			
+			$screen->add_help_tab(array(
+				'id' => 'plugin-support',
+				'title' => "Plugin Support",
+				'content' => "<h2>Support</h2><p>For Plugin Support please visit <a href='http://mywebsiteadvisor.com/support/' target='_blank'>MyWebsiteAdvisor.com</a></p>"
+			));
+			
+			$faqs = "<p><b>Question: Why am I getting low quality watermarks?</b><br>Answer: The plugin needs to change the size of your watermark image, according to the size of your original image.  You should use a watermark image that is roughly the same width as your largest images intended to be watermarked.  That way the plugin will scale them down, resulting in no loss of quality.  When the plugin is forced to do the opposite and increase the size of a small watermark image, low quality watermarks may occur.</p>";
+			
+			$faqs .= "<p><b>Question: How can I remove the watermarks?</b><br>Answer: This plugin permenantly alters the images to contain the watermarks, so the watermarks can not be removed.  If you want to simply test this plugin, or think you may want to remove the watermarks, you need to make a backup of your images before you run the plugin to add watermarks.</p>";
+
+			
+			
+			$screen->add_help_tab(array(
+				'id' => 'plugin-faq',
+				'title' => "Plugin FAQ's",
+				'content' => "<h2>Frequently Asked Questions</h2>".$faqs
+			));
+			
+			
+			$screen->add_help_tab(array(
+				'id' => 'plugin-upgrades',
+				'title' => "Plugin Upgrades",
+				'content' => "<h2>Plugin Upgrades</h2><p>We also offer a premium version of this pluign with extended features!<br>You can learn more about it here: <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>MyWebsiteAdvisor.com</a></p><p>Learn more about our different watermark plugins for WordPress here: <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/watermark-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p><p>Learn about all of our free plugins for WordPress here: <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p>"
+			));
+			
+			
+	
+			$screen->set_help_sidebar("<p>Please Visit us online for more Free WordPress Plugins!</p><p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p><br>");
+			//$contextual_help = 'HELP!';
+		}
+			
+		//return $contextual_help;
+
+	}	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Include styles used by Transparent Watermark Plugin
@@ -259,15 +313,15 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 
 
 <?php $this->HtmlPrintBoxHeader('pl_resources',__('Plugin Resources','resources'),true); ?>
-	<p><a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
-	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Plugin Support</a></p>
+	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
+	<p><a href='http://mywebsiteadvisor.com/support/'  target='_blank'>Plugin Support</a></p>
 	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Suggest a Feature</a></p>
 	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Contact Us</a></p>
 <?php $this->HtmlPrintBoxFooter(true); ?>
 
 
 <?php $this->HtmlPrintBoxHeader('pl_upgrades',__('Plugin Upgrades','upgrades'),true); ?>
-	<p><a href='http://mywebsiteadvisor.com/wordpress-plugins/transparent-image-watermark/' target='_blank'>Upgrade to Transparent Watermark Ultra!</a></p>
+	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Upgrade to Transparent Watermark Ultra!</a></p>
 	<p><b>Features:</b><br />
 	 -Manually Add Watermarks<br />
 	 -Change Watermark Position<br />
