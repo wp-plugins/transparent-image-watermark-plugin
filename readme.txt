@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
 Tested up to: 3.4.2
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
 
@@ -86,6 +86,10 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 == Changelog ==
+
+= 2.0.2 =
+* cleaned up a leftover/unused debug function.
+
 
 = 2.0.1 =
 * updated plugin activation php version check which was causing out of place errors.
