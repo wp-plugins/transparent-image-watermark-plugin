@@ -44,6 +44,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			$show_on_upload_screen = $this->get_option('show_on_upload_screen');			 
 			if($show_on_upload_screen === "true"){	
 				add_filter('attachment_fields_to_edit', array(&$this, 'attachment_field_add_watermark'), 10, 2);
+				
 			}
 			
 			// add plugin "Settings" action on plugin list
@@ -688,7 +689,10 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
                 } else {
                  	return false; 
                 }
-    	}                    
+    	}      
+		
+		
+             
 
 }
 
