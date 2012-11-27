@@ -6,7 +6,7 @@ class Transparent_Watermark {
 	 *
 	 * @var string
 	 */
-	public $version                 = '1.5';
+	public $version                 = '2.0.3';
 	
 	/**
 	 * Array with default options
@@ -113,7 +113,8 @@ class Transparent_Watermark {
 		// get settings for watermarking
 		$upload_dir   = wp_upload_dir();
 		$watermark_on = $this->get_option('watermark_on');
-
+		
+		
 		// loop through image sizes ...
 		foreach($watermark_on as $image_size => $on) {
 			if($on == true) {
@@ -252,7 +253,7 @@ class Transparent_Watermark {
 	private function saveImageFile($image, $mime_type, $filepath) {
 		switch ( $mime_type ) {
 			case 'image/jpeg':
-				return imagejpeg($image, $filepath, apply_filters( 'jpeg_quality', 90 ));
+				return imagejpeg($image, $filepath, 100);
 			case 'image/png':
 				return imagepng($image, $filepath);
 			case 'image/gif':
