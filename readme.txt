@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
 Tested up to: 3.4.2
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
 
@@ -40,7 +40,6 @@ Requirements:
 
 To-do:
 
-* Add the ability to turn off watermark when uploading an image.
 
 
 == Installation ==
@@ -86,6 +85,13 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 == Changelog ==
+
+= 2.0.4 =
+* added rate this plugin link in plugin row meta links on plugin screen
+* added upgrade plugin link in plugin row meta links on plugin screen
+* added check for image types before attempting to apply wantermark to eliminate error messages.
+* resolved warnings about ereg_replace depricated function
+* resolved other notices and warnings about undefined index
 
 
 = 2.0.3 =

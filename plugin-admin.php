@@ -38,7 +38,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 
 		} else {
 			// register installer function
-			register_activation_hook(TW_LOADER, array(&$this, 'activateWatermark'));
+			register_activation_hook(TW_LOADER, array(&$this, 'activate_watermark'));
 			
 
 			$show_on_upload_screen = $this->get_option('show_on_upload_screen');			 
@@ -54,16 +54,16 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			add_filter('plugin_row_meta', array(&$this, 'add_plugin_links'), 10, 2);
 			
 			// push options page link, when generating admin menu
-			add_action('admin_menu', array(&$this, 'adminMenu'));
+			add_action('admin_menu', array(&$this, 'admin_menu'));
 	
 			//add help menu
-			add_filter('contextual_help', array(&$this,'adminHelp'), 10, 3);
+			add_filter('contextual_help', array(&$this,'admin_help'), 10, 3);
 			
 			
 			// check if post_id is "-1", meaning we're uploading watermark image
 			if(!(array_key_exists('post_id', $_REQUEST) && $_REQUEST['post_id'] == -1)) {
 				// add filter for watermarking images
-				add_filter('wp_generate_attachment_metadata', array(&$this, 'applyWatermark'));
+				add_filter('wp_generate_attachment_metadata', array(&$this, 'apply_watermark'));
 			}
 		}
 	}
@@ -82,25 +82,32 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	 */
 	public function add_plugin_links($links, $file) {
 		if($file == plugin_basename(TW_LOADER)) {
-			$links[] = '<a href="http://MyWebsiteAdvisor.com/">Visit Us Online</a>';
+			$upgrade_url = 'http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/';
+			$links[] = '<a href="'.$upgrade_url.'" target="_blank" title="Click Here to Upgrade this Plugin!">Upgrade Plugin</a>';
+		
+			$rate_url = 'http://wordpress.org/support/view/plugin-reviews/' . basename(dirname(__FILE__)) . '?rate=5#postform';
+			$links[] = '<a href="'.$rate_url.'" target="_blank" title="Click Here to Rate and Review this Plugin on WordPress.org">Rate This Plugin</a>';
+			
 		}
 		
 		return $links;
 	}
 	
+
+	
 	/**
 	 * Add menu entry for Transparent Watermark settings and attach style and script include methods
 	 */
-	public function adminMenu() {		
+	public function admin_menu() {		
 		// add option in admin menu, for setting details on watermarking
 		global $transparent_watermark_admin_page;
-		$transparent_watermark_admin_page = add_options_page('Transparent Watermark Plugin Options', 'Transparent Watermark', 8, __FILE__, array(&$this, 'optionsPage'));
+		$transparent_watermark_admin_page = add_options_page('Transparent Watermark Plugin Options', 'Transparent Watermark', 8, __FILE__, array(&$this, 'options_page'));
 
-		add_action('admin_print_styles-' . $transparent_watermark_admin_page,     array(&$this, 'installStyles'));
+		add_action('admin_print_styles-' . $transparent_watermark_admin_page,     array(&$this, 'install_styles'));
 	}
 	
 	
-	public function adminHelp($contextual_help, $screen_id, $screen){
+	public function admin_help($contextual_help, $screen_id, $screen){
 	
 		global $transparent_watermark_admin_page;
 		
@@ -151,7 +158,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	/**
 	 * Include styles used by Transparent Watermark Plugin
 	 */
-	public function installStyles() {
+	public function install_styles() {
 		wp_enqueue_style('transparent-watermark', WP_PLUGIN_URL . $this->_plugin_dir . 'style.css');
 	}
 	
@@ -159,7 +166,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 
 
 
-	function HtmlPrintBoxHeader($id, $title, $right = false) {
+	function html_print_box_header($id, $title, $right = false) {
 		
 		?>
 		<div id="<?php echo $id; ?>" class="postbox">
@@ -170,7 +177,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 		
 	}
 	
-	function HtmlPrintBoxFooter( $right = false) {
+	function html_print_box_footer( $right = false) {
 		?>
 			</div>
 		</div>
@@ -185,7 +192,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	/**
 	 * Display options page
 	 */
-	public function optionsPage() {
+	public function options_page() {
 		// if user clicked "Save Changes" save them
 		if(isset($_POST['Submit'])) {
 			foreach($this->_options as $option => $value) {
@@ -265,7 +272,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 		<div class="inner-sidebar">
 			<div id="side-sortables" class="meta-box-sortabless ui-sortable" style="position:relative;">
 			
-<?php $this->HtmlPrintBoxHeader('pl_diag',__('Plugin Diagnostic Check','diagnostic'),true); ?>
+<?php $this->html_print_box_header('pl_diag',__('Plugin Diagnostic Check','diagnostic'),true); ?>
 
 				<?
 				
@@ -309,19 +316,19 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 				
 				?>
 
-<?php $this->HtmlPrintBoxFooter(true); ?>
+<?php $this->html_print_box_footer(true); ?>
 
 
 
-<?php $this->HtmlPrintBoxHeader('pl_resources',__('Plugin Resources','resources'),true); ?>
+<?php $this->html_print_box_header('pl_resources',__('Plugin Resources','resources'),true); ?>
 	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
 	<p><a href='http://mywebsiteadvisor.com/support/'  target='_blank'>Plugin Support</a></p>
 	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Contact Us</a></p>
 	<p><a href='http://wordpress.org/support/view/plugin-reviews/transparent-image-watermark-plugin?rate=5'  target='_blank'>Rate and Review This Plugin</a></p>
-<?php $this->HtmlPrintBoxFooter(true); ?>
+<?php $this->html_print_box_footer(true); ?>
 
 
-<?php $this->HtmlPrintBoxHeader('pl_upgrades',__('Plugin Upgrades','upgrades'),true); ?>
+<?php $this->html_print_box_header('pl_upgrades',__('Plugin Upgrades','upgrades'),true); ?>
 	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Upgrade to Transparent Watermark Ultra!</a></p>
 	<p><b>Features:</b><br />
 	 -Manually Add Watermarks<br />
@@ -333,26 +340,26 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	<p>-<a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/bulk-watermark/' target='_blank'>Bulk Watermark</a></p>
 	<p>-<a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/signature-watermark/' target='_blank'>Signature Watermark</a></p>
 	<p>-<a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Transparent Image Watermark</a></p>
-<?php $this->HtmlPrintBoxFooter(true); ?>
+<?php $this->html_print_box_footer(true); ?>
 
 
-<?php $this->HtmlPrintBoxHeader('more_plugins',__('More Plugins','more_plugins'),true); ?>
+<?php $this->html_print_box_header('more_plugins',__('More Plugins','more_plugins'),true); ?>
 	
 	<p><a href='http://mywebsiteadvisor.com/tools/premium-wordpress-plugins/'  target='_blank'>Premium WordPress Plugins!</a></p>
 	<p><a href='http://profiles.wordpress.org/MyWebsiteAdvisor/'  target='_blank'>Free Plugins on Wordpress.org!</a></p>
 	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/'  target='_blank'>Free Plugins on MyWebsiteAdvisor.com!</a></p>	
 				
-<?php $this->HtmlPrintBoxFooter(true); ?>
+<?php $this->html_print_box_footer(true); ?>
 
 
-<?php $this->HtmlPrintBoxHeader('follow',__('Follow MyWebsiteAdvisor','follow'),true); ?>
+<?php $this->html_print_box_header('follow',__('Follow MyWebsiteAdvisor','follow'),true); ?>
 
 	<p><a href='http://facebook.com/MyWebsiteAdvisor/'  target='_blank'>Follow us on Facebook!</a></p>
 	<p><a href='http://twitter.com/MWebsiteAdvisor/'  target='_blank'>Follow us on Twitter!</a></p>
 	<p><a href='http://www.youtube.com/mywebsiteadvisor'  target='_blank'>Watch us on YouTube!</a></p>
 	<p><a href='http://MyWebsiteAdvisor.com/'  target='_blank'>Visit our Website!</a></p>	
 	
-<?php $this->HtmlPrintBoxFooter(true); ?>
+<?php $this->html_print_box_footer(true); ?>
 
 </div>
 </div>
@@ -367,7 +374,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 				
 	
 		
-		<?php $this->HtmlPrintBoxHeader('wm_type',__('Watermark Type','watermark-type'),false); ?>
+		<?php $this->html_print_box_header('wm_type',__('Watermark Type','watermark-type'),false); ?>
 
 
 
@@ -527,7 +534,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			</p>
 			
 			
-			<?php $this->HtmlPrintBoxFooter(true); ?>
+			<?php $this->html_print_box_footer(true); ?>
 			
 
 		</form>
@@ -607,7 +614,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
                   	$upload_dir   = wp_upload_dir();
                   
                   	$url_info = parse_url($post->guid);
-  			$url_info['path'] = ereg_replace("/wp-content/uploads/", "/", $url_info['path']);
+  			$url_info['path'] = str_replace("/wp-content/uploads/", "/", $url_info['path']);
   
   			$filepath = $upload_dir['basedir']  . $url_info['path'];
 
@@ -616,14 +623,14 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
                   	$path_info = pathinfo($url_info['path']);
                   	
                   	$base_filename = $path_info['basename'];
-                  	$base_path = ereg_replace($base_filename, "", $post->guid);
+                  	$base_path = str_replace($base_filename, "", $post->guid);
                   
  			 //$url_info['path'] = ereg_replace("/wp-content/uploads/", "/", $url_info['path']);
                   
                   
                   
-                  $watermark_horizontal_location = $this->get_option('watermark_horizontal_location');
-                  $watermark_vertical_location = $this->get_option('watermark_vertical_location');
+                  $watermark_horizontal_location = 50;
+                  $watermark_vertical_location = 50;
                   $watermark_image = $this->get_option('watermark_image');
                   $watermark_width = $watermark_image['width'];
                   
