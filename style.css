@@ -28,5 +28,68 @@ td.wr_width {
 }
 
 .form-table, .form-table th.nowidth {
-	width: auto;	
+	width: auto;
+	clear:none;
+		
 }
+
+
+
+
+
+		
+		li.sm_hint {
+			color:green;
+		}
+		
+		li.sm_optimize {
+			color:orange;
+		}
+		
+		li.sm_error {
+			color:red;
+		}
+		
+		input.sm_warning:hover {
+			background: #ce0000;
+			color: #fff;
+		}
+		
+		a.sm_button {
+			padding:4px;
+			display:block;
+			padding-left:25px;
+			background-repeat:no-repeat;
+			background-position:5px 50%;
+			text-decoration:none;
+			border:none;
+		}
+		
+		a.sm_button:hover {
+			border-bottom-width:1px;
+		}
+
+		
+		div.sm-update-nag p {
+			margin:5px;
+		}
+		
+		
+
+
+		
+				.sm-padded .inside {
+					margin:12px!important;
+				}
+				.sm-padded .inside ul {
+					margin:6px 0 12px 0;
+				}
+				
+				.sm-padded .inside input {
+					padding:1px;
+					margin:0;
+				}
+
+				
+
+			
