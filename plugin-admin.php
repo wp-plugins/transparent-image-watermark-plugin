@@ -113,6 +113,14 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 		
 		if ($screen_id == $transparent_watermark_admin_page) {
 			
+			
+			$support_the_dev = $this->display_support_us();
+			$screen->add_help_tab(array(
+				'id' => 'developer-support',
+				'title' => "Support the Developer",
+				'content' => "<h2>Support the Developer</h2><p>".$support_the_dev."</p>"
+			));
+			
 			$screen->add_help_tab(array(
 				'id' => 'plugin-support',
 				'title' => "Plugin Support",
@@ -150,7 +158,21 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	
 	
 	
+	public function display_support_us(){
+				
+		$string = '<p><b>Thank You for using the Bulk Watermark Plugin for WordPress!</b></p>';
+		$string .= "<p>Please take a moment to <b>Support the Developer</b> by doing some of the following items:</p>";
+		
+		$rate_url = 'http://wordpress.org/support/view/plugin-reviews/' . basename(dirname(__FILE__)) . '?rate=5#postform';
+		$string .= "<li><a href='$rate_url' target='_blank' title='Click Here to Rate and Review this Plugin on WordPress.org'>Click Here</a> to Rate and Review this Plugin on WordPress.org!</li>";
+		
+		$string .= "<li><a href='http://facebook.com/MyWebsiteAdvisor' target='_blank' title='Click Here to Follow us on Facebook'>Click Here</a> to Follow MyWebsiteAdvisor on Facebook!</li>";
+		$string .= "<li><a href='http://twitter.com/MWebsiteAdvisor' target='_blank' title='Click Here to Follow us on Twitter'>Click Here</a> to Follow MyWebsiteAdvisor on Twitter!</li>";
+		$string .= "<li><a href='http://mywebsiteadvisor.com/tools/premium-wordpress-plugins/' target='_blank' title='Click Here to Purchase one of our Premium WordPress Plugins'>Click Here</a> to Purchase Premium WordPress Plugins!</li>";
 	
+		return $string;
+	}
+
 	
 	
 	
@@ -274,7 +296,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			
 <?php $this->html_print_box_header('pl_diag',__('Plugin Diagnostic Check','diagnostic'),true); ?>
 
-				<?
+				<?php
 				
 				echo "<p>Server OS: ".PHP_OS."</p>";
 						
@@ -324,7 +346,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
 	<p><a href='http://mywebsiteadvisor.com/support/'  target='_blank'>Plugin Support</a></p>
 	<p><a href='http://mywebsiteadvisor.com/contact-us/'  target='_blank'>Contact Us</a></p>
-	<p><a href='http://wordpress.org/support/view/plugin-reviews/transparent-image-watermark-plugin?rate=5'  target='_blank'>Rate and Review This Plugin</a></p>
+	<p><a href='http://wordpress.org/support/view/plugin-reviews/transparent-image-watermark-plugin?rate=5#postform'  target='_blank'>Rate and Review This Plugin</a></p>
 <?php $this->html_print_box_footer(true); ?>
 
 
@@ -428,7 +450,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							<fieldset class="wr_width">
 							<legend class="screen-reader-text"><span>Watermark Type</span></legend>
 
-								<input name="watermark_type" value="image" type="radio" <? if($watermark_type == "image"){echo "checked='checked'";}  ?> /> Image <br />
+								<input name="watermark_type" value="image" type="radio" <?php if($watermark_type == "image"){echo "checked='checked'";}  ?> /> Image <br />
 								
 								
 							</fieldset>
