@@ -629,26 +629,31 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
                         //$sizes = array_unique($sizes);
                   	krsort($sizes);
                   
-                  
-                  
-                  
-                  
+
+
                   	$upload_dir   = wp_upload_dir();
                   
                   	$url_info = parse_url($post->guid);
-  			$url_info['path'] = str_replace("/wp-content/uploads/", "/", $url_info['path']);
+  					$url_info['path'] = str_replace("/wp-content/uploads/", "/", $url_info['path']);
   
-  			$filepath = $upload_dir['basedir']  . $url_info['path'];
+  					$filepath = $upload_dir['basedir']  . $url_info['path'];
 
                   
-                    	 //$url_info = parse_url($post->guid);
+    
                   	$path_info = pathinfo($url_info['path']);
                   	
                   	$base_filename = $path_info['basename'];
                   	$base_path = str_replace($base_filename, "", $post->guid);
-                  
- 			 //$url_info['path'] = ereg_replace("/wp-content/uploads/", "/", $url_info['path']);
-                  
+					
+ 			 
+			 
+                  	$url_info = parse_url($post->guid);
+					$url_info['path'] = ereg_replace("/wp-content/uploads/", "/", $url_info['path']);
+
+					$path_info = pathinfo($post->guid);
+					$url_base = $path_info['dirname']."/".$path_info['filename'] . "." . $path_info['extension'];
+					$filepath = ABSPATH . str_replace(get_option('siteurl'), "", $url_base);
+					$filepath = str_replace("//", "/", $filepath);
                   
                   
                   $watermark_horizontal_location = 50;
@@ -675,12 +680,18 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
                   $form_html .= "<div id='attachment_sizes'>";
                   
   		$form_html .= "<p><input type='checkbox' name='attachment_size[]' class='attachment_size' value='".$post->guid."'>";
-                $form_html .= "Original - <a class='watermark_preview' href='".$post->guid."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
+                $form_html .= "Original - <a class='watermark_preview' href='".$post->guid."?".filemtime($filepath)."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
                   
                   foreach($sizes as $size){
                     
                     	$form_html .= "<p><input type='checkbox' name='attachment_size[]' class='attachment_size' value='".$base_path.$size['file']."'>";
-                    	$form_html .= $size['width'] . "x" . $size['height'] . " - <a class='watermark_preview' title='".$size['file']." Preview'  href='".$base_path.$size['file']."' target='_blank'>" . $size['file'] . "</a></p>";
+						
+						$image_link = $base_path.$size['file'];
+						
+						$filename = $path_info['filename'].".".$path_info['extension'];
+						$current_filepath = str_replace($filename, $size['file'], $filepath);
+						
+                    	$form_html .= $size['width'] . "x" . $size['height'] . " - <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?".filemtime($current_filepath)."' target='_blank'>" . $size['file'] . "</a></p>";
                     
   
                   }
