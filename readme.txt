@@ -3,8 +3,8 @@ Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
-Tested up to: 3.5.0
-Stable tag: 2.0.6
+Tested up to: 3.5
+Stable tag: 2.0.7
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
 
@@ -53,7 +53,10 @@ To-do:
 
 = Plugin doesn't work ... =
 
-Please specify as much information as you can to help me debug the problem. Check in your error.log if you can. Please send screenshots as well as a detailed description of the problem.
+Please specify as much information as you can to help us debug the problem. 
+Check in your error log if you can. 
+Please send screenshots as well as a detailed description of the problem.
+
 
 = Error message says that I don't have GD extension installed =
 
@@ -85,6 +88,10 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 == Changelog ==
+
+
+= 2.0.7 =
+* fixed type in help menu
 
 
 = 2.0.6 =

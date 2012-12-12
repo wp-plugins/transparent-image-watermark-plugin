@@ -160,7 +160,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	
 	public function display_support_us(){
 				
-		$string = '<p><b>Thank You for using the Bulk Watermark Plugin for WordPress!</b></p>';
+		$string = '<p><b>Thank You for using the Transparent Image Watermark Plugin for WordPress!</b></p>';
 		$string .= "<p>Please take a moment to <b>Support the Developer</b> by doing some of the following items:</p>";
 		
 		$rate_url = 'http://wordpress.org/support/view/plugin-reviews/' . basename(dirname(__FILE__)) . '?rate=5#postform';
@@ -557,6 +557,8 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 			
 			
 			<?php $this->html_print_box_footer(true); ?>
+			
+			</div></div></div></div>
 			
 
 		</form>
