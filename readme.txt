@@ -91,7 +91,7 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 = 2.0.7 =
-* fixed type in help menu
+* fixed typo in help menu
 
 
 = 2.0.6 =
