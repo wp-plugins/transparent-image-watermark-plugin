@@ -101,7 +101,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 	public function admin_menu() {		
 		// add option in admin menu, for setting details on watermarking
 		global $transparent_watermark_admin_page;
-		$transparent_watermark_admin_page = add_options_page('Transparent Watermark Plugin Options', 'Transparent Watermark', 8, __FILE__, array(&$this, 'options_page'));
+		$transparent_watermark_admin_page = add_options_page('Transparent Watermark Plugin Options', 'Transparent Watermark', 'manage_options', __FILE__, array(&$this, 'options_page'));
 
 		add_action('admin_print_styles-' . $transparent_watermark_admin_page,     array(&$this, 'install_styles'));
 	}
@@ -297,6 +297,8 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 <?php $this->html_print_box_header('pl_diag',__('Plugin Diagnostic Check','diagnostic'),true); ?>
 
 				<?php
+				
+				echo "<p>Plugin Version: $this->version</p>";
 				
 				echo "<p>Server OS: ".PHP_OS."</p>";
 						
