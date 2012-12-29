@@ -6,7 +6,7 @@ class Transparent_Watermark {
 	 *
 	 * @var string
 	 */
-	public $version                 = '2.1';
+	public $version                 = '2.2';
 	
 	/**
 	 * Array with default options
@@ -16,6 +16,7 @@ class Transparent_Watermark {
 	protected $_options             = array(
 		'show_on_upload_screen' => true,
 		'watermark_on'       => array(),
+		'watermark_type_on'		=> array(),
 		'watermark_type' =>	'image',
 		'watermark_image'	=> array(
 			'url' => null,
@@ -116,7 +117,9 @@ class Transparent_Watermark {
 			
 		if(isset($data['file'])){
 			$mime_type = wp_check_filetype($upload_dir['basedir'] . DIRECTORY_SEPARATOR . $data['file']);
-			$allowed_types = array('jpg', 'png', 'gif');
+			
+			//$allowed_types = array('jpg', 'png', 'gif');
+			$allowed_types = array_keys( get_option('watermark_type_on') );
 			
 			if(in_array($mime_type['ext'], $allowed_types)){
 			
@@ -158,7 +161,8 @@ class Transparent_Watermark {
 		// get image mime type
 		$mime_type = wp_check_filetype($filepath);
 		
-		$allowed_types = array('jpg', 'png', 'gif');
+		//$allowed_types = array('jpg', 'png', 'gif');
+		$allowed_types = array_keys( get_option('watermark_type_on') );
 		
 		if(in_array($mime_type['ext'], $allowed_types)){
 			$mime_type = $mime_type['type'];
