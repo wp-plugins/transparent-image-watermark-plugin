@@ -6,7 +6,7 @@ class Transparent_Watermark {
 	 *
 	 * @var string
 	 */
-	public $version                 = '1.5';
+	public $version                 = '2.2';
 	
 	/**
 	 * Array with default options
@@ -16,6 +16,7 @@ class Transparent_Watermark {
 	protected $_options             = array(
 		'show_on_upload_screen' => true,
 		'watermark_on'       => array(),
+		'watermark_type_on'		=> array(),
 		'watermark_type' =>	'image',
 		'watermark_image'	=> array(
 			'url' => null,
@@ -77,7 +78,7 @@ class Transparent_Watermark {
 	 * @param array $opt
 	 * @return array
 	 */
-	private function mergeConfArray($default, $opt) {
+	private function merge_conf_array($default, $opt) {
 		foreach($default as $option => $values)	{
 			if(!empty($opt[$option])) {
 				$default[$option] = is_array($values) ? array_merge($values, $opt[$option]) : $opt[$option];
@@ -91,7 +92,7 @@ class Transparent_Watermark {
 	/**
 	 * Plugin installation method
 	 */
-	public function activateWatermark() {
+	public function activate_watermark() {
 		// record install time
 		add_option('watermark_installed', time(), null, 'no');
 				
@@ -109,32 +110,42 @@ class Transparent_Watermark {
 	 * @param array $data
 	 * @return array
 	 */
-	public function applyWatermark($data) {
+	public function apply_watermark($data) {
 		// get settings for watermarking
 		$upload_dir   = wp_upload_dir();
 		$watermark_on = $this->get_option('watermark_on');
-
-		// loop through image sizes ...
-		foreach($watermark_on as $image_size => $on) {
-			if($on == true) {
-				switch($image_size) {
-					case 'fullsize':
-						$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $data['file'];
-						break;
-					default:
-						if(!empty($data['sizes']) && array_key_exists($image_size, $data['sizes'])) {
-							$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . dirname($data['file']) . DIRECTORY_SEPARATOR . $data['sizes'][$image_size]['file'];
-						} else {
-							// early getaway
-							continue 2;
-						}	
+			
+		if(isset($data['file'])){
+			$mime_type = wp_check_filetype($upload_dir['basedir'] . DIRECTORY_SEPARATOR . $data['file']);
+			
+			//$allowed_types = array('jpg', 'png', 'gif');
+			$allowed_types = array_keys( get_option('watermark_type_on') );
+			
+			if(in_array($mime_type['ext'], $allowed_types)){
+			
+				// loop through image sizes ...
+				foreach($watermark_on as $image_size => $on) {
+					if($on == true) {
+						switch($image_size) {
+							case 'fullsize':
+								$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $data['file'];
+								break;
+							default:
+								if(!empty($data['sizes']) && array_key_exists($image_size, $data['sizes'])) {
+									$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . dirname($data['file']) . DIRECTORY_SEPARATOR . $data['sizes'][$image_size]['file'];
+								} else {
+									// early getaway
+									continue 2;
+								}	
+						}
+						
+						// ... and apply watermark
+						$this->do_watermark($filepath);
+					}
 				}
-				
-				// ... and apply watermark
-				$this->doWatermark($filepath);
 			}
 		}
-
+		
 		// pass forward attachment metadata
 		return $data;
 	}
@@ -146,24 +157,30 @@ class Transparent_Watermark {
 	 * @param string $filepath
 	 * @return boolean
 	 */
-	public function doWatermark($filepath) {
+	public function do_watermark($filepath) {
 		// get image mime type
 		$mime_type = wp_check_filetype($filepath);
-		$mime_type = $mime_type['type'];
 		
-		// get watermark settings
-		$options = $this->get_options();
-
-		// get image resource
-		$image = $this->getImageResource($filepath, $mime_type);
-
-		if($options['watermark_type'] == "image"){
-			// add watermark image to image
-			$this->imageAddWatermarkImage($image, $options);
+		//$allowed_types = array('jpg', 'png', 'gif');
+		$allowed_types = array_keys( get_option('watermark_type_on') );
+		
+		if(in_array($mime_type['ext'], $allowed_types)){
+			$mime_type = $mime_type['type'];
+			
+			// get watermark settings
+			$options = $this->get_options();
+	
+			// get image resource
+			$image = $this->get_image_resource($filepath, $mime_type);
+	
+			if($options['watermark_type'] == "image"){
+				// add watermark image to image
+				$this->image_add_watermark_image($image, $options);
+			}
+			
+			// save watermarked image
+			return $this->save_image_file($image, $mime_type, $filepath);
 		}
-		
-		// save watermarked image
-		return $this->saveImageFile($image, $mime_type, $filepath);
 	}
 	
 
@@ -177,7 +194,7 @@ class Transparent_Watermark {
 	 * @param array $opt
 	 * @return resource
 	 */
-	private function imageAddWatermarkImage($image, array $opt) {
+	private function image_add_watermark_image($image, array $opt) {
 		// get size and url of watermark
 		$size  =  $opt['watermark_image']['width'] / 100;
 		$url  =  $opt['watermark_image']['url'];
@@ -212,7 +229,7 @@ class Transparent_Watermark {
 	 * @param resource $image
 	 * @return array
 	 */
-	private function getImageSize($image) {
+	private function get_image_size($image) {
 		return array(
 			'x' => imagesx($image),
 			'y' => imagesy($image)
@@ -228,7 +245,7 @@ class Transparent_Watermark {
 	 * @param string $mime_type
 	 * @return resource
 	 */
-	private function getImageResource($filepath, $mime_type) {
+	private function get_image_resource($filepath, $mime_type) {
 		switch ( $mime_type ) {
 			case 'image/jpeg':
 				return imagecreatefromjpeg($filepath);
@@ -249,10 +266,10 @@ class Transparent_Watermark {
 	 * @param string $filepath
 	 * @return boolean
 	 */
-	private function saveImageFile($image, $mime_type, $filepath) {
+	private function save_image_file($image, $mime_type, $filepath) {
 		switch ( $mime_type ) {
 			case 'image/jpeg':
-				return imagejpeg($image, $filepath, apply_filters( 'jpeg_quality', 90 ));
+				return imagejpeg($image, $filepath, 100);
 			case 'image/png':
 				return imagepng($image, $filepath);
 			case 'image/gif':

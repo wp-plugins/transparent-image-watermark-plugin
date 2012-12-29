@@ -3,10 +3,16 @@ Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
-Tested up to: 3.3.1
-Stable tag: 1.5
+Tested up to: 3.5
+Stable tag: 2.1
+Donate link: http://MyWebsiteAdvisor.com/donations
+
 
 Adds a watermark to all uploaded images, using PNG images with transparency.
+
+
+
+
 
 
 == Description ==
@@ -21,7 +27,7 @@ Check out the [Transparent Image Watermark for WordPress video](http://www.youtu
 http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
 
 
-Developer Website: http://MyWebsiteAdvisor.com
+Developer Website: http://MyWebsiteAdvisor.com/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
@@ -34,14 +40,14 @@ If we choose your testimonial or website we can link to your site and generate s
 
 Requirements:
 
-* PHP5
+* PHP 5
 * GD extension for PHP
 
 
 To-do:
 
-* Change Location of Watermark.
-* Add the ability to turn off watermark when uploading an image.
+
+
 
 
 == Installation ==
@@ -51,11 +57,18 @@ To-do:
 3. Go to Transparent Watermark settings and enable Transparent Watermark Plugin.
 
 
+
+
+
+
 == Frequently Asked Questions ==
 
 = Plugin doesn't work ... =
 
-Please specify as much information as you can to help me debug the problem. Check in your error.log if you can. Please send screenshots as well as a detailed description of the problem.
+Please specify as much information as you can to help us debug the problem. 
+Check in your error log if you can. 
+Please send screenshots as well as a detailed description of the problem.
+
 
 = Error message says that I don't have GD extension installed =
 
@@ -67,15 +80,20 @@ Check out the [Transparent Image Watermark for WordPress video](http://www.youtu
 http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
 
 
-Developer Website: http://MyWebsiteAdvisor.com
+Developer Website: http://MyWebsiteAdvisor.com/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
 We are looking for testimonials and live examples of our plugins on your website!
-Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials
+Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials/
 If we choose your testimonial or website we can link to your site and generate some free traffic for you!
+
+
+
+
+
 
 
 == Screenshots ==
@@ -86,7 +104,75 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 
+
+
 == Changelog ==
+
+= 2.2 =
+* updated plugin settings screen
+* updated and improved image preview on edit media screen
+* added ability to select type of images to auto watermark, for example jpg only
+
+
+= 2.1 =
+* updated readme file.
+* fixed several issues causing warnings and notices in debug.log
+* added plugin version to plugin diagnostic screen.
+
+
+= 2.0.7 =
+* fixed typo in help menu
+
+
+= 2.0.6 =
+* fixed issues with displaying cached version of images, and not displaying newly watermarked images properly.
+* verified compatibility with WordPress v3.5
+
+
+= 2.0.5 =
+* fixed several improper opening php tags
+
+
+= 2.0.4 =
+* added rate this plugin link in plugin row meta links on plugin screen
+* added upgrade plugin link in plugin row meta links on plugin screen
+* added check for image types before attempting to apply wantermark to eliminate error messages.
+* resolved warnings about ereg_replace depricated function
+* resolved other notices and warnings about undefined index
+
+
+= 2.0.3 =
+* added link to rate and review this plugin on WordPress.org.
+
+
+= 2.0.2 =
+* cleaned up a leftover/unused debug function.
+
+
+= 2.0.1 =
+* updated plugin activation php version check which was causing out of place errors.
+
+
+= 2.0 =
+* added contextual help menu with faqs and support links
+* fixed broken links
+
+
+= 1.9 =
+* added to debug info panel, minor cleanup, fixed broken links
+
+
+= 1.8 =
+* updated image size selection option to resolve issue with non-standard or custom size images not having watermarks applied.
+
+
+= 1.7 =
+* fixed some broken links, other minor cleanup.
+
+
+= 1.6 =
+* improved appearance of plugin settings page, increased output quality of final watermarked image, added plugin diagnostic on settings page.
+
 
 = 1.5 =
 * added option to turn off advanced features preview on upload screen.
