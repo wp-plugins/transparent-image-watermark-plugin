@@ -764,15 +764,12 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 				  
 				  
                   foreach($sizes as $size){
-                    
-                    	//$form_html .= "<input type='checkbox' name='attachment_size[]' class='attachment_size' value='".$base_path.$size['file']."'>";
-						
+              
 						$image_link = $base_path.$size['file'];
 						
 						$filename = $path_info['filename'].".".$path_info['extension'];
 						$current_filepath = str_replace($filename, $size['file'], $filepath);
 						
-                    	//$form_html .= $size['width'] . "x" . $size['height'] . "  <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?".filemtime($current_filepath)."' target='_blank'>" . $size['file'] . "</a>";
                     
 						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;'> ".$size['width'] . "x" . $size['height'];
 						$form_html .= " <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?".filemtime($current_filepath)."' target='_blank'>" . $size['file'] . "</a></p>";
@@ -785,7 +782,6 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
             			'input'      => 'html',
             			'html'       => $form_html);
 					
-  
                   }
 
                   
