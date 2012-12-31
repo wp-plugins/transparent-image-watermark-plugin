@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 2.9
 Tested up to: 3.5
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 Donate link: http://MyWebsiteAdvisor.com/donations
 
 
@@ -107,6 +107,11 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 == Changelog ==
+
+= 2.2.2 =
+* added label elements around checkboxes to make the label text clickable.
+* added function exists check for the sys_getloadavg function so it does not cause fatal errors on MS Windows Servers
+
 
 = 2.2.1 =
 * fixed readme file stable tag
