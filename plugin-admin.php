@@ -338,10 +338,10 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 				
 				echo "<p>Peak Memory Use: " . number_format(memory_get_peak_usage()/1024/1024, 1) . " / " . ini_get('memory_limit') . "</p>";
 		
-				$lav = sys_getloadavg();
-				echo "<p>Server Load Average: ".$lav[0].", ".$lav[1].", ".$lav[2]."</p>";
-
-				
+				if(function_exists('sys_getloadavg')){
+					$lav = sys_getloadavg();
+					echo "<p>Server Load Average: ".$lav[0].", ".$lav[1].", ".$lav[2]."</p>";
+				}	
 				
 				?>
 
@@ -501,7 +501,7 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							<fieldset class="wr_width">
 							<legend class="screen-reader-text"><span>Watermark Type</span></legend>
 
-								<input name="watermark_type" value="image" type="radio" <?php if($watermark_type == "image"){echo "checked='checked'";}  ?> /> Image   <br />
+								<label><input name="watermark_type" value="image" type="radio" <?php if($watermark_type == "image"){echo "checked='checked'";}  ?> /> Image   </label><br />
 							 (<a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/' target='_blank'>Click Here to Upgrade!</a>)
 								
 								
@@ -581,8 +581,8 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							<fieldset class="wr_width">
 							<legend class="screen-reader-text"><span>Enable Watermark Resampling</span></legend>
 	
-								Enable : <input name="watermark_resampling" type="checkbox" size="50" value="true"  disabled="disabled" />
-								(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)
+								<label>Enable : <input name="watermark_resampling" type="checkbox" size="50" value="true"  disabled="disabled" /></label><br />
+								<span class="description">(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)</span>
 							</fieldset>
 						</td>
 						
@@ -595,8 +595,8 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 							<legend class="screen-reader-text"><span>Enable Advanced Features Preview</span></legend>
 								<?php $show_on_upload_screen = $this->get_option('show_on_upload_screen'); ?>
 								
-								Enable :  <input name="show_on_upload_screen" type="checkbox" size="50" value='true'  <?php if($show_on_upload_screen === "true"){echo "checked='checked'";}  ?>  />
-								(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)
+								<label>Enable :  <input name="show_on_upload_screen" type="checkbox" size="50" value='true'  <?php if($show_on_upload_screen === "true"){echo "checked='checked'";}  ?>  /></label><br />
+								<span class="description">(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)</span>
 							</fieldset>
 						</td>
 						
@@ -764,15 +764,12 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
 				  
 				  
                   foreach($sizes as $size){
-                    
-                    	//$form_html .= "<input type='checkbox' name='attachment_size[]' class='attachment_size' value='".$base_path.$size['file']."'>";
-						
+              
 						$image_link = $base_path.$size['file'];
 						
 						$filename = $path_info['filename'].".".$path_info['extension'];
 						$current_filepath = str_replace($filename, $size['file'], $filepath);
 						
-                    	//$form_html .= $size['width'] . "x" . $size['height'] . "  <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?".filemtime($current_filepath)."' target='_blank'>" . $size['file'] . "</a>";
                     
 						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;'> ".$size['width'] . "x" . $size['height'];
 						$form_html .= " <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?".filemtime($current_filepath)."' target='_blank'>" . $size['file'] . "</a></p>";
@@ -785,7 +782,6 @@ class Transparent_Watermark_Admin extends Transparent_Watermark {
             			'input'      => 'html',
             			'html'       => $form_html);
 					
-  
                   }
 
                   
