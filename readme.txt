@@ -2,9 +2,9 @@
 Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
-Requires at least: 2.9
-Tested up to: 3.5
-Stable tag: 2.1
+Requires at least: 3.3
+Tested up to: 3.5.1
+Stable tag: 2.3
 Donate link: http://MyWebsiteAdvisor.com/donations
 
 
@@ -40,7 +40,8 @@ If we choose your testimonial or website we can link to your site and generate s
 
 Requirements:
 
-* PHP 5
+* PHP v5.0+
+* WordPress v3.3+
 * GD extension for PHP
 
 
@@ -98,15 +99,33 @@ If we choose your testimonial or website we can link to your site and generate s
 
 == Screenshots ==
 
-1. Finished Example Image
-2. Thumbnail Example
-3. Admin Page
-
+1. Watermark Settings Page
+2. Watermark Preview Page
+3. Finished Example Image
 
 
 
 
 == Changelog ==
+
+= 2.3 =
+* updated plugin to use WordPress settings API
+* added tabbed navigation on settings page
+* added watermark preview system (preview tab)
+* added watermark tutorial video to the plugin admin interface (tutorial video tab)
+* updated screenshots
+* updated readme, required WP version is 3.3
+
+
+
+= 2.2.2 =
+* added label elements around checkboxes to make the label text clickable.
+* added function exists check for the sys_getloadavg function so it does not cause fatal errors on MS Windows Servers
+
+
+= 2.2.1 =
+* fixed readme file stable tag
+
 
 = 2.2 =
 * updated plugin settings screen
