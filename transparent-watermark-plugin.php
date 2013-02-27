@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3";
+	private $version = "2.3.1";
 	
 	private $debug = false;
 	
@@ -525,10 +525,10 @@ class Transparent_Watermark_Plugin{
 	 */
 	public function add_plugin_links($links, $file) {
 		if($file == plugin_basename(TW_LOADER)) {
-			$upgrade_url = 'http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-ultra/';
+			$upgrade_url = 'http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/';
 			$links[] = '<a href="'.$upgrade_url.'" target="_blank" title="Click Here to Upgrade this Plugin!">Upgrade Plugin</a>';
 			
-			$tutorial_url = 'http://mywebsiteadvisor.com/learning/video-tutorials/transparent-watermark-tutorial/';
+			$tutorial_url = 'http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/';
 			$links[] = '<a href="'.$tutorial_url.'" target="_blank" title="Click Here to View the Plugin Video Tutorial!">Tutorial Video</a>';
 			
 			$rate_url = 'http://wordpress.org/support/view/plugin-reviews/' . basename(dirname(__FILE__)) . '?rate=5#postform';
