@@ -2,24 +2,29 @@
 Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
-Requires at least: 2.9
-Tested up to: 3.5
-Stable tag: 2.1
-Donate link: http://MyWebsiteAdvisor.com/donations
+Requires at least: 3.3
+Tested up to: 3.5.1
+Stable tag: 2.3.1
+Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
-Adds a watermark to all uploaded images, using PNG images with transparency.
-
-
-
+Automatically watermark images as they are uploaded to the WordPress Media Library.
 
 
 
 == Description ==
-
-This plugin allows you to watermark your uploaded images using a PNG image file with transparency.  
+This plugin allows you to Automatically add a watermark to all images as they are uploaded to the WordPress Media Library.
+The plugin uses PNG watermark images with transparency for precise control over the appearance of the watermarks.
 The user friendly settings page allows for control over the appearance of your watermark.  
-You can set your watermarks to always be a specific percentage of the target image.  
+The watermark preview feature allows for easy testing of the plugin settings.
+The watermark size is controlled as a percentage of the target image, 50% means the watermark will be half the width of the target image. 
+
+
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+watermark features including:
+
+* Adjustable Watermark Positions
+* Manually Apply Watermarks to Images Previously Uploaded
 
 
 Check out the [Transparent Image Watermark for WordPress video](http://www.youtube.com/watch?v=fEhZK1U8W94):
@@ -28,6 +33,8 @@ http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
 
 
 Developer Website: http://MyWebsiteAdvisor.com/
+
+Plugin Support: http://MyWebsiteAdvisor.com/support/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
@@ -40,7 +47,8 @@ If we choose your testimonial or website we can link to your site and generate s
 
 Requirements:
 
-* PHP 5
+* PHP v5.0+
+* WordPress v3.3+
 * GD extension for PHP
 
 
@@ -57,7 +65,11 @@ To-do:
 3. Go to Transparent Watermark settings and enable Transparent Watermark Plugin.
 
 
+Check out the [Transparent Image Watermark for WordPress video](http://www.youtube.com/watch?v=fEhZK1U8W94):
 
+http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
+
+Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
 
 
@@ -70,9 +82,37 @@ Check in your error log if you can.
 Please send screenshots as well as a detailed description of the problem.
 
 
+
 = Error message says that I don't have GD extension installed =
 
 Contact your hosting provider and ask them to enable GD extension for your host,  GD extension is required for watermarking.
+
+
+
+= How can I Add Watermarks to images that were uploaded before the plugin was installed? = 
+
+We have a premium version of this plugin that adds the capability to manually add watermarks to images in the WordPress Media Library.
+
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+watermark features including:
+
+* Adjustable Watermark Positions
+* Manually Apply Watermarks to Images Previously Uploaded
+
+
+
+= How can I Adjust the Location of the Watermarks? = 
+
+We have a premium version of this plugin that adds the capability to adjust the location of the watermarks.
+The position can be adjusted both vertically and horizontally.
+
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+watermark features including:
+
+* Adjustable Watermark Positions
+* Manually Apply Watermarks to Images Previously Uploaded
+
+
 
 
 Check out the [Transparent Image Watermark for WordPress video](http://www.youtube.com/watch?v=fEhZK1U8W94):
@@ -81,6 +121,8 @@ http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
 
 
 Developer Website: http://MyWebsiteAdvisor.com/
+
+Plugin Support: http://MyWebsiteAdvisor.com/support/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
@@ -98,15 +140,38 @@ If we choose your testimonial or website we can link to your site and generate s
 
 == Screenshots ==
 
-1. Finished Example Image
-2. Thumbnail Example
-3. Admin Page
-
+1. Watermark Settings Page
+2. Watermark Preview Page
+3. Finished Example Image
 
 
 
 
 == Changelog ==
+
+= 2.3.1 =
+* fixed several bad links
+* update readme file
+
+
+= 2.3 =
+* updated plugin to use WordPress settings API
+* added tabbed navigation on settings page
+* added watermark preview system (preview tab)
+* added watermark tutorial video to the plugin admin interface (tutorial video tab)
+* updated screenshots
+* updated readme, required WP version is 3.3
+
+
+
+= 2.2.2 =
+* added label elements around checkboxes to make the label text clickable.
+* added function exists check for the sys_getloadavg function so it does not cause fatal errors on MS Windows Servers
+
+
+= 2.2.1 =
+* fixed readme file stable tag
+
 
 = 2.2 =
 * updated plugin settings screen
