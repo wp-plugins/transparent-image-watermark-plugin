@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.1";
+	private $version = "2.3.2";
 	
 	private $debug = false;
 	
@@ -474,12 +474,19 @@ class Transparent_Watermark_Plugin{
 				'content' => "<h2>Support</h2><p>For Plugin Support please visit <a href='http://mywebsiteadvisor.com/support/' target='_blank'>MyWebsiteAdvisor.com</a></p>"
 			));
 			
-			
+			/**
 			$screen->add_help_tab(array(
 				'id' => 'plugin-upgrades',
 				'title' => "Plugin Upgrades",
 				'content' => "<h2>Plugin Upgrades</h2><p>We also offer a premium version of this pluign with extended features!<br>You can learn more about it here: <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>MyWebsiteAdvisor.com</a></p><p>Learn more about our different watermark plugins for WordPress here: <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/watermark-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p><p>Learn about all of our free plugins for WordPress here: <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p>"
 			));
+			**/
+			
+			$screen->add_help_tab(array(
+				'id' => 'upgrade_plugin',
+				'title' => __( 'Plugin Upgrades', $this->plugin_name ),
+				'content' => $this->get_plugin_upgrades()		
+			));	
 			
 			$screen->set_help_sidebar("<p>Please Visit us online for more Free WordPress Plugins!</p><p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p><br>");
 			
@@ -632,8 +639,146 @@ class Transparent_Watermark_Plugin{
 			
 			$this->settings_page->add_section( $plugin_debug );
 		}	
+		
+		
+				
+		$upgrade_plugin = array(
+			'id' => 'upgrade_plugin',
+			'title' => __( 'Plugin Upgrades', $this->plugin_name ),
+			'callback' => array(&$this, 'show_plugin_upgrades')
+		);
+		$this->settings_page->add_section( $upgrade_plugin );
 	
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	public function get_plugin_upgrades(){
+	
+		ob_start();
+		$this->show_plugin_upgrades();
+		return ob_get_clean();	
+	}
+	
+	
+	public function show_plugin_upgrades(){
+		
+		
+
+		
+		$html = "<style>
+			ul.upgrade_features li { list-style-type: disc; }
+			ul.upgrade_features  { margin-left:30px;}
+		</style>";
+		
+		$html .= "<script>
+		
+			function  trans_watermark_upgrade(){
+        		window.open('http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/');
+        		return false;
+			}
+			
+			function  sig_watermark_upgrade(){
+        		window.open('http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/signature-watermark-ultra/');
+        		return false;
+			}
+		
+			function  bulk_watermark_upgrade(){
+        		window.open('http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/bulk-watermark-ultra/');
+        		return false;
+			}
+			
+			function compare_watermark_plugins(){
+        		window.open('http://mywebsiteadvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/');
+        		return false				
+			}
+			
+			
+		</script>";
+		
+		//transparent watermark ultra
+		$html .= "</form><h2>Upgrade to Transparent Watermark Ultra Today!</h2>";
+		
+		$html .= "<p><b>Premium Features include:</b></p>";
+		
+		$html .= "<ul class='upgrade_features'>";
+		$html .= "<li>Fully Adjustable Watermark Position</li>";
+		$html .= "<li>Manually watermark images using the WordPress Media Library</li>";	
+		$html .= "<li>Higher Quality Watermarks</li>";
+		$html .= "<li>Priority Support</li>";
+		$html .= "</ul>";
+		
+		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
+		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Upgrade to Transparent Watermark Ultra &raquo;' onclick='return trans_watermark_upgrade()'></p>";
+		$html .=  "</div>";
+
+		$html .=  "<hr/>";
+		
+		
+		//signature watermark ultra
+		$html .= "</form><h2>Also try Signature Watermark Ultra Today!</h2>";
+		$html .= "Signature Watermark Plugin adds text and/or image watermarks to each new image as they are uploaded.";
+		
+		$html .= "<p><b>Premium Features include:</b></p>";
+		
+		$html .= "<ul class='upgrade_features'>";
+		$html .= "<li>Fully Adjustable Text and Image Watermark Positions</li>";
+		$html .= "<li>Manually watermark images using the WordPress Media Library</li>";	
+		$html .= "<li>Higher Quality Watermarks</li>";
+		$html .= "<li>Priority Support</li>";
+		$html .= "</ul>";
+		
+		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
+		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Upgrade to Signature Watermark Ultra &raquo;' onclick='return sig_watermark_upgrade()'></p>";
+		$html .=  "</div>";
+
+		$html .=  "<hr/>";
+
+
+		//bulk watermark ultra
+		$html .= "<h2>Also Try Bulk Watermark Ultra!</h2>";
+		$html .= "Bulk Watermark Plugin adds text and/or image watermarks to images which have already been uploaded to your Media Library.";
+		
+		$html .= "<p><b>Premium Features include:</b></p>";
+		
+		$html .= "<ul class='upgrade_features'>";
+		$html .= "<li>Fully Adjustable Text and Image Watermark Positions</li>";
+		$html .= "<li>Higher Quality Watermarks</li>";
+		$html .= "<li>Priority Support</li>";
+		$html .= "</ul>";
+
+		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
+		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Upgrade to Bulk Watermark Ultra &raquo;' onclick='return bulk_watermark_upgrade()'></p>";
+		$html .=  "</div>";
+		
+		$html .=  "<hr/>";
+
+
+		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
+		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Click Here to Compare All of Our Watermark Plugins &raquo;' onclick='return compare_watermark_plugins()'></p>";
+		$html .=  "</div>";
+		
+		echo $html;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	public function show_watermark_preview(){
@@ -642,6 +787,8 @@ class Transparent_Watermark_Plugin{
 		echo "<p><strong>You can customize the preview image by replacing the image named ";
 		echo " <a href='".$this->plugin_url."example.jpg' target='_blank'>'example.jpg'</a> in the plugin directory.</strong></p>";
 	}
+	
+	
  
 
 	// displays the plugin options array
@@ -652,6 +799,8 @@ class Transparent_Watermark_Plugin{
 		echo "</pre>";
 			
 	}
+	
+	
 	
 	
 	public function show_plugin_tutorual(){

@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -23,13 +23,17 @@ The watermark size is controlled as a percentage of the target image, 50% means 
 <a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
-* Adjustable Watermark Positions
+* Adjustable Watermark Position
 * Manually Apply Watermarks to Images Previously Uploaded
+* Higher Quality Watermarks
+* Priority Support
+
 
 
 Check out the [Transparent Image Watermark for WordPress video](http://www.youtube.com/watch?v=fEhZK1U8W94):
 
 http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
+
 
 
 Developer Website: http://MyWebsiteAdvisor.com/
@@ -40,9 +44,6 @@ Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-ima
 
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
-We are looking for testimonials and live examples of our plugins on your website!  
-Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials  
-If we choose your testimonial or website we can link to your site and generate some free traffic for you!
 
 
 Requirements:
@@ -73,6 +74,7 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 
 
+
 == Frequently Asked Questions ==
 
 = Plugin doesn't work ... =
@@ -96,8 +98,10 @@ We have a premium version of this plugin that adds the capability to manually ad
 <a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
-* Adjustable Watermark Positions
+* Adjustable Watermark Position
 * Manually Apply Watermarks to Images Previously Uploaded
+* Higher Quality Watermarks
+* Priority Support
 
 
 
@@ -109,8 +113,29 @@ The position can be adjusted both vertically and horizontally.
 <a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
-* Adjustable Watermark Positions
+* Adjustable Watermark Position
 * Manually Apply Watermarks to Images Previously Uploaded
+* Higher Quality Watermarks
+* Priority Support
+
+
+
+
+= How do I generate the Highest Quality Watermarks? = 
+
+We recommend that your watermark image be roughly the same width as the largest images you plan to watermark.
+That way the watermark image will be scaled down, which will work better than making the watermark image larger in order to fit.
+
+We also have a premium version of this plugin that adds the capability to resample the watermark image, rather than simply resize it.
+This results in significantly better looking watermarks.
+
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+watermark features including:
+
+* Adjustable Watermark Position
+* Manually Apply Watermarks to Images Previously Uploaded
+* Higher Quality Watermarks
+* Priority Support
 
 
 
@@ -120,6 +145,8 @@ Check out the [Transparent Image Watermark for WordPress video](http://www.youtu
 http://www.youtube.com/watch?v=fEhZK1U8W94&hd=1
 
 
+
+
 Developer Website: http://MyWebsiteAdvisor.com/
 
 Plugin Support: http://MyWebsiteAdvisor.com/support/
@@ -127,10 +154,6 @@ Plugin Support: http://MyWebsiteAdvisor.com/support/
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
-
-We are looking for testimonials and live examples of our plugins on your website!
-Please submit your website or testimonial here: http://MyWebsiteAdvisor.com/testimonials/
-If we choose your testimonial or website we can link to your site and generate some free traffic for you!
 
 
 
@@ -148,6 +171,11 @@ If we choose your testimonial or website we can link to your site and generate s
 
 
 == Changelog ==
+
+= 2.3.2 =
+* added pluin upgrades tab on plugin settings page
+* update readme file
+
 
 = 2.3.1 =
 * fixed several bad links
