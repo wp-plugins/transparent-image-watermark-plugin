@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -23,10 +23,10 @@ The watermark size is controlled as a percentage of the target image, 50% means 
 <a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
-* Adjustable Watermark Position
 * Manually Apply Watermarks to Images Previously Uploaded
-* Higher Quality Watermarks
-* Priority Support
+* Fully Adjustable Image Watermark Position
+* Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
+* Priority Support License
 
 
 
@@ -98,10 +98,10 @@ We have a premium version of this plugin that adds the capability to manually ad
 <a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
-* Adjustable Watermark Position
 * Manually Apply Watermarks to Images Previously Uploaded
-* Higher Quality Watermarks
-* Priority Support
+* Fully Adjustable Image Watermark Position
+* Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
+* Priority Support License
 
 
 
@@ -113,10 +113,10 @@ The position can be adjusted both vertically and horizontally.
 <a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
-* Adjustable Watermark Position
 * Manually Apply Watermarks to Images Previously Uploaded
-* Higher Quality Watermarks
-* Priority Support
+* Fully Adjustable Image Watermark Position
+* Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
+* Priority Support License
 
 
 
@@ -132,11 +132,10 @@ This results in significantly better looking watermarks.
 <a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
-* Adjustable Watermark Position
 * Manually Apply Watermarks to Images Previously Uploaded
-* Higher Quality Watermarks
-* Priority Support
-
+* Fully Adjustable Image Watermark Position
+* Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
+* Priority Support License
 
 
 
@@ -172,8 +171,16 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 == Changelog ==
 
+= 2.3.3 =
+* updated contextual help, removed depricated filter and updated to preferred method
+* added uninstall and deactivation funtions to clear plugin settings
+* updated plugin upgrades tab on plugin settings page
+* update readme file
+* updated broken links
+
+
 = 2.3.2 =
-* added pluin upgrades tab on plugin settings page
+* added plugin upgrades tab on plugin settings page
 * update readme file
 
 

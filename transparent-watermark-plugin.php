@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.2";
+	private $version = "2.3.3";
 	
 	private $debug = false;
 	
@@ -90,7 +90,7 @@ class Transparent_Watermark_Plugin{
         add_action( 'admin_menu', array(&$this, 'admin_menu') );
 		
 		//add help menu to settings page
-		add_filter( 'contextual_help', array(&$this,'admin_help'), 10, 3);	
+		//add_filter( 'contextual_help', array(&$this,'admin_help'), 10, 3);	
 		
 		// add plugin "Settings" action on plugin list
 		add_action('plugin_action_links_' . plugin_basename(TW_LOADER), array(&$this, 'add_plugin_actions'));
@@ -302,7 +302,7 @@ class Transparent_Watermark_Plugin{
 		$plugin_resources = "<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Plugin Homepage</a></p>
 			<p><a href='http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/'  target='_blank'>Plugin Tutorial</a></p>
 			<p><a href='http://mywebsiteadvisor.com/support/'  target='_blank'>Plugin Support</a></p>
-			<p><a href='http://wordpress.org/support/view/plugin-reviews/transparent-image-watermark?rate=5#postform'  target='_blank'>Rate and Review This Plugin</a></p>";
+			<p><a href='http://wordpress.org/support/view/plugin-reviews/transparent-image-watermark-plugin?rate=5#postform'  target='_blank'>Rate and Review This Plugin</a></p>";
 	
 		$more_plugins = "<p><a href='http://mywebsiteadvisor.com/tools/premium-wordpress-plugins/'  target='_blank'>Premium WordPress Plugins!</a></p>
 			<p><a href='http://profiles.wordpress.org/MyWebsiteAdvisor/'  target='_blank'>Free Plugins on Wordpress.org!</a></p>
@@ -415,14 +415,23 @@ class Transparent_Watermark_Plugin{
 
    	public function admin_menu() {
 		$this->page_menu = add_options_page( $this->plugin_title, $this->plugin_title, 'manage_options',  $this->setting_name, array($this, 'plugin_settings_page') );
+ 	
+		global $wp_version;
+
+   		if($this->page_menu && version_compare($wp_version, '3.3', '>=')){
+			add_action("load-". $this->page_menu, array($this, 'admin_help'));	
+		}
     }
 
 
 
 
-	public function admin_help($contextual_help, $screen_id, $screen){
-		
-		if ($screen_id == $this->page_menu) {
+	//public function admin_help($contextual_help, $screen_id, $screen){
+	public function admin_help(){
+			
+		 $screen = get_current_screen();
+		 
+		//if ($screen_id == $this->page_menu) {
 				
 			$support_the_dev = $this->display_support_us();
 			$screen->add_help_tab(array(
@@ -490,7 +499,7 @@ class Transparent_Watermark_Plugin{
 			
 			$screen->set_help_sidebar("<p>Please Visit us online for more Free WordPress Plugins!</p><p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p><br>");
 			
-		}
+		//}
 	}
 	
 	
@@ -661,7 +670,6 @@ class Transparent_Watermark_Plugin{
 	
 		
 	public function get_plugin_upgrades(){
-	
 		ob_start();
 		$this->show_plugin_upgrades();
 		return ob_get_clean();	
@@ -669,9 +677,6 @@ class Transparent_Watermark_Plugin{
 	
 	
 	public function show_plugin_upgrades(){
-		
-		
-
 		
 		$html = "<style>
 			ul.upgrade_features li { list-style-type: disc; }
@@ -685,21 +690,42 @@ class Transparent_Watermark_Plugin{
         		return false;
 			}
 			
-			function  sig_watermark_upgrade(){
-        		window.open('http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/signature-watermark-ultra/');
+			
+			function  try_sig_watermark(){
+        		window.open('http://wordpress.org/extend/plugins/signature-watermark/');
         		return false;
 			}
 		
-			function  bulk_watermark_upgrade(){
-        		window.open('http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/bulk-watermark-ultra/');
+			function  try_bulk_watermark(){
+        		window.open('http://wordpress.org/extend/plugins/bulk-watermark/');
         		return false;
 			}
+			
+
+			
+	
+			function  trans_watermark_learn_more(){
+        		window.open('http://mywebsiteadvisor.com/tools/wordpress-plugin/transparent-image-watermark/');
+        		return false;
+			}
+			
+			function  bulk_watermark_learn_more(){
+        		window.open('http://mywebsiteadvisor.com/tools/wordpress-plugin/bulk-watermark/');
+        		return false;
+			}
+			
+			function  sig_watermark_learn_more(){
+        		window.open('http://mywebsiteadvisor.com/tools/wordpress-plugin/signature-watermark/');
+        		return false;
+			}
+			
+			
+			
 			
 			function compare_watermark_plugins(){
         		window.open('http://mywebsiteadvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/');
         		return false				
 			}
-			
 			
 		</script>";
 		
@@ -716,50 +742,45 @@ class Transparent_Watermark_Plugin{
 		$html .= "</ul>";
 		
 		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
-		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Upgrade to Transparent Watermark Ultra &raquo;' onclick='return trans_watermark_upgrade()'></p>";
+		$html .= "<p class='submit'>";
+		$html .= "<input type='submit' class='button-primary' value='Upgrade to Transparent Watermark Ultra &raquo;' onclick='return trans_watermark_upgrade()'> &nbsp;";
+		$html .= "<input type='submit' class='button-secondary' value='Learn More &raquo;' onclick='return trans_watermark_learn_more()'>";
+		$html .= "</p>";		
 		$html .=  "</div>";
+
 
 		$html .=  "<hr/>";
 		
 		
-		//signature watermark ultra
-		$html .= "</form><h2>Also try Signature Watermark Ultra Today!</h2>";
+		//signature watermark 
+		$html .= "<h2>Also Try Signature Watermark!</h2>";
 		$html .= "Signature Watermark Plugin adds text and/or image watermarks to each new image as they are uploaded.";
 		
-		$html .= "<p><b>Premium Features include:</b></p>";
-		
-		$html .= "<ul class='upgrade_features'>";
-		$html .= "<li>Fully Adjustable Text and Image Watermark Positions</li>";
-		$html .= "<li>Manually watermark images using the WordPress Media Library</li>";	
-		$html .= "<li>Higher Quality Watermarks</li>";
-		$html .= "<li>Priority Support</li>";
-		$html .= "</ul>";
-		
 		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
-		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Upgrade to Signature Watermark Ultra &raquo;' onclick='return sig_watermark_upgrade()'></p>";
+		$html .= "<p class='submit'>";
+		$html .= "<input type='submit' class='button-primary' value='Try Signature Watermark &raquo;' onclick='return try_sig_watermark()'> &nbsp;";
+		$html .= "<input type='submit' class='button-secondary' value='Learn More &raquo;' onclick='return sig_watermark_learn_more()'>";
+		$html .= "</p>";
 		$html .=  "</div>";
-
+		
+		
 		$html .=  "<hr/>";
 
 
-		//bulk watermark ultra
-		$html .= "<h2>Also Try Bulk Watermark Ultra!</h2>";
+		//bulk watermark
+		$html .= "<h2>Also Try Bulk Watermark!</h2>";
 		$html .= "Bulk Watermark Plugin adds text and/or image watermarks to images which have already been uploaded to your Media Library.";
 		
-		$html .= "<p><b>Premium Features include:</b></p>";
-		
-		$html .= "<ul class='upgrade_features'>";
-		$html .= "<li>Fully Adjustable Text and Image Watermark Positions</li>";
-		$html .= "<li>Higher Quality Watermarks</li>";
-		$html .= "<li>Priority Support</li>";
-		$html .= "</ul>";
-
 		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
-		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Upgrade to Bulk Watermark Ultra &raquo;' onclick='return bulk_watermark_upgrade()'></p>";
+		$html .= "<p class='submit'>";
+		$html .= "<input type='submit' class='button-primary' value='Try Bulk Watermark &raquo;' onclick='return try_bulk_watermark()'> &nbsp;";
+		$html .= "<input type='submit' class='button-secondary' value='Learn More &raquo;' onclick='return bulk_watermark_learn_more()'>";
+		$html .= "</p>";
 		$html .=  "</div>";
 		
+		
 		$html .=  "<hr/>";
-
+		
 
 		$html .=  '<div style="padding-left: 1.5em; margin-left:5px;">';
 		$html .= "<p class='submit'><input type='submit' class='button-primary' value='Click Here to Compare All of Our Watermark Plugins &raquo;' onclick='return compare_watermark_plugins()'></p>";
