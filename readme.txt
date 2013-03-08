@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -26,7 +26,7 @@ watermark features including:
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
-* Priority Support License
+* Lifetime Priority Support and Update License
 
 
 
@@ -91,6 +91,21 @@ Contact your hosting provider and ask them to enable GD extension for your host,
 
 
 
+= Error message says that I need to enable the allow_url_fopen option =
+
+Contact your hosting provider and ask them to enable allow_url_fopen, most likely in your php.ini  
+It may be necessary to create a php.ini file inside of the wp-admin directory to enable the allow_url_fopen option.
+
+
+
+= How do I Remove Watermarks? =
+
+This plugin permenantly alters the images to contain the watermarks, so the watermarks can not be removed. 
+If you want to simply test this plugin, or think you may want to remove the watermarks, you need to make a backup of your images before you use the plugin to add watermarks.
+<a href="http://wordpress.org/extend/plugins/simple-backup/">**Try Simple Backup Plugin**</a>
+
+
+
 = How can I Add Watermarks to images that were uploaded before the plugin was installed? = 
 
 We have a premium version of this plugin that adds the capability to manually add watermarks to images in the WordPress Media Library.
@@ -101,7 +116,7 @@ watermark features including:
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
-* Priority Support License
+* Lifetime Priority Support and Update License
 
 
 
@@ -116,7 +131,7 @@ watermark features including:
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
-* Priority Support License
+* Lifetime Priority Support and Update License
 
 
 
@@ -135,7 +150,7 @@ watermark features including:
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
-* Priority Support License
+* Lifetime Priority Support and Update License
 
 
 
@@ -171,9 +186,14 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 == Changelog ==
 
+= 2.3.4 =
+* updated plugin FAQs
+* updated readme file
+
+
 = 2.3.3 =
-* updated contextual help, removed depricated filter and updated to preferred method
-* added uninstall and deactivation funtions to clear plugin settings
+* updated contextual help, removed deprecated filter and updated to preferred method
+* added uninstall and deactivation functions to clear plugin settings
 * updated plugin upgrades tab on plugin settings page
 * update readme file
 * updated broken links
@@ -236,8 +256,8 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 = 2.0.4 =
 * added rate this plugin link in plugin row meta links on plugin screen
 * added upgrade plugin link in plugin row meta links on plugin screen
-* added check for image types before attempting to apply wantermark to eliminate error messages.
-* resolved warnings about ereg_replace depricated function
+* added check for image types before attempting to apply watermark to eliminate error messages.
+* resolved warnings about ereg_replace deprecated function
 * resolved other notices and warnings about undefined index
 
 
