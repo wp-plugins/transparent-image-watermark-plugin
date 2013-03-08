@@ -1,106 +1,29 @@
 <?php
 
-class Transparent_Watermark {
-	/**
-	 * Transparent Watermark version
-	 *
-	 * @var string
-	 */
-	public $version                 = '2.2';
-	
-	/**
-	 * Array with default options
-	 *
-	 * @var array
-	 */
-	protected $_options             = array(
-		'show_on_upload_screen' => true,
-		'watermark_on'       => array(),
-		'watermark_type_on'		=> array(),
-		'watermark_type' =>	'image',
-		'watermark_image'	=> array(
-			'url' => null,
-			'width' => 80
-		)
-	);
-	
-	/**
-	 * Plugin work path
-	 *
-	 * @var string
-	 */
-	protected $_plugin_dir          = null;
-	
-	/**
-	 * Settings url
-	 *
-	 * @var string
-	 */
-	protected $_settings_url        = null;
 
-	
-	/**
-	 * Get option by setting name with default value if option is unexistent
-	 *
-	 * @param string $setting
-	 * @return mixed
-	 */
-	protected function get_option($setting) {
-	    if(is_array($this->_options[$setting])) {
-	        $options = array_merge($this->_options[$setting], get_option($setting));
-	    } else {
-	        $options = get_option($setting, $this->_options[$setting]);
-	    }
 
-	    return $options;
-	}
+class Transparent_Watermark_Tools{
 	
-	/**
-	 * Get array with options
-	 *
-	 * @return array
-	 */
-	private function get_options() {
-		$options = array();
+	
+	//holds plugin options
+	public $opt;
+	
+	//holds basic plugin config locations
+	public $plugin_path;
+	public $plugin_dir;
+	public $plugin_url;
+	
+	
+	
+	//initialize plugin
+	public function __construct(){
+
+		$this->plugin_path = DIRECTORY_SEPARATOR . str_replace(basename(__FILE__), null, plugin_basename(__FILE__));
+		$this->plugin_dir = WP_PLUGIN_DIR . $this->plugin_path;
+		$this->plugin_url = WP_PLUGIN_URL . $this->plugin_path;
 		
-		// loop through default options and get user defined options
-		foreach($this->_options as $option => $value) {
-			$options[$option] = $this->get_option($option);
-		}
-		
-		return $options;
 	}
-	
-	/**
-	 * Merge configuration array with the default one
-	 *
-	 * @param array $default
-	 * @param array $opt
-	 * @return array
-	 */
-	private function merge_conf_array($default, $opt) {
-		foreach($default as $option => $values)	{
-			if(!empty($opt[$option])) {
-				$default[$option] = is_array($values) ? array_merge($values, $opt[$option]) : $opt[$option];
-				$default[$option] = is_array($values) ? array_intersect_key($default[$option], $values) : $opt[$option];
-			}
-		}
 
-		return $default;
-    }
-	
-	/**
-	 * Plugin installation method
-	 */
-	public function activate_watermark() {
-		// record install time
-		add_option('watermark_installed', time(), null, 'no');
-				
-		// loop through default options and add them into DB
-		foreach($this->_options as $option => $value) {
-			add_option($option, $value, null, 'no');	
-		}
-	}
 	
 	
 	
@@ -113,18 +36,20 @@ class Transparent_Watermark {
 	public function apply_watermark($data) {
 		// get settings for watermarking
 		$upload_dir   = wp_upload_dir();
-		$watermark_on = $this->get_option('watermark_on');
+		$options = $this->opt;
+		$watermark_sizes = $options['watermark_settings']['image_sizes'];
+		$watermark_types = $options['watermark_settings']['image_types'];
 			
 		if(isset($data['file'])){
 			$mime_type = wp_check_filetype($upload_dir['basedir'] . DIRECTORY_SEPARATOR . $data['file']);
 			
 			//$allowed_types = array('jpg', 'png', 'gif');
-			$allowed_types = array_keys( get_option('watermark_type_on') );
+			$allowed_types = array_keys( $watermark_types );
 			
 			if(in_array($mime_type['ext'], $allowed_types)){
 			
 				// loop through image sizes ...
-				foreach($watermark_on as $image_size => $on) {
+				foreach($watermark_sizes as $image_size => $on) {
 					if($on == true) {
 						switch($image_size) {
 							case 'fullsize':
@@ -151,6 +76,37 @@ class Transparent_Watermark {
 	}
 	
 	
+	
+	
+	public function do_watermark_preview(){
+
+		$options = $this->opt;
+	
+		$filepath = $this->plugin_dir . "/example.jpg";
+	
+		$mime_type = wp_check_filetype($filepath);
+		$mime_type = $mime_type['type'];
+
+		// get image resource
+		$image = $this->get_image_resource($filepath, $mime_type);
+		
+
+		$this->apply_watermark_image($image, $options);
+		
+		
+		// Set the content-type
+		header('Content-type: image/jpg');
+
+		// Output the image using imagejpg()
+		imagejpeg($image, null, 100);
+		imagedestroy($image);
+	}
+
+
+
+
+
+
 	/**
 	 * Apply watermark to certain image
 	 *
@@ -158,25 +114,26 @@ class Transparent_Watermark {
 	 * @return boolean
 	 */
 	public function do_watermark($filepath) {
+		
+		//get plugin options
+		$options = $this->opt;
+		
 		// get image mime type
 		$mime_type = wp_check_filetype($filepath);
 		
-		//$allowed_types = array('jpg', 'png', 'gif');
-		$allowed_types = array_keys( get_option('watermark_type_on') );
+		$watermark_types = $options['watermark_settings']['image_types'];
+		$allowed_types = array_keys( $watermark_types );
 		
 		if(in_array($mime_type['ext'], $allowed_types)){
 			$mime_type = $mime_type['type'];
-			
-			// get watermark settings
-			$options = $this->get_options();
 	
 			// get image resource
 			$image = $this->get_image_resource($filepath, $mime_type);
 	
-			if($options['watermark_type'] == "image"){
-				// add watermark image to image
-				$this->image_add_watermark_image($image, $options);
-			}
+			
+			// add watermark image to image
+			$this->apply_watermark_image($image, $options);
+		
 			
 			// save watermarked image
 			return $this->save_image_file($image, $mime_type, $filepath);
@@ -194,10 +151,10 @@ class Transparent_Watermark {
 	 * @param array $opt
 	 * @return resource
 	 */
-	private function image_add_watermark_image($image, array $opt) {
+	private function apply_watermark_image($image, array $opt) {
 		// get size and url of watermark
-		$size  =  $opt['watermark_image']['width'] / 100;
-		$url  =  $opt['watermark_image']['url'];
+		$size  =  $opt['watermark_settings']['watermark_image_width'] / 100;
+		$url  =  $opt['watermark_settings']['watermark_image_url'];
 		
 		$watermark = imagecreatefrompng("$url"); 
 		$watermark_width = imagesx($watermark);
@@ -258,6 +215,7 @@ class Transparent_Watermark {
 		}
 	}
 	
+	
 	/**
 	 * Save image from image resource
 	 *
@@ -278,6 +236,9 @@ class Transparent_Watermark {
 				return false;
 		}
 	}
+
+	
 }
+
 
 ?>

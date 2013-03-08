@@ -11,7 +11,6 @@ this.imagePreview = function(){
 	jQuery("a.watermark_preview").hover(function(e){
 		this.t = this.title;
 		this.title = "";	
-			
 		
 		var c = (this.t != "") ? "<br/>" + this.t : "";
 		jQuery("body").append("<p id='watermark_preview'><img class='watermark_preview_image' src='"+ this.href +"' alt='Image preview' />"+ c +"</p>");	
