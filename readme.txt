@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -20,7 +20,7 @@ The watermark preview feature allows for easy testing of the plugin settings.
 The watermark size is controlled as a percentage of the target image, 50% means the watermark will be half the width of the target image. 
 
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -110,7 +110,7 @@ If you want to simply test this plugin, or think you may want to remove the wate
 
 We have a premium version of this plugin that adds the capability to manually add watermarks to images in the WordPress Media Library.
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -125,7 +125,7 @@ watermark features including:
 We have a premium version of this plugin that adds the capability to adjust the location of the watermarks.
 The position can be adjusted both vertically and horizontally.
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -144,7 +144,7 @@ That way the watermark image will be scaled down, which will work better than ma
 We also have a premium version of this plugin that adds the capability to resample the watermark image, rather than simply resize it.
 This results in significantly better looking watermarks.
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugin/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -185,6 +185,10 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 
 == Changelog ==
+
+= 2.3.5 =
+* updated links to plugin page
+
 
 = 2.3.4 =
 * updated plugin FAQs
