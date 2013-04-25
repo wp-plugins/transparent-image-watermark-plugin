@@ -219,7 +219,7 @@ class Transparent_Watermark_Tools{
 		// allocate text color
 		$text_transparency =  (int) (($text_transparency/100) * 127);
 		$text_color  = $this->image_transparent_color_allocate_hex($image, $text_color, $text_transparency);
-		//$text_color = ImageColorAllocateAlpha($image, 255, 255, 255, 96);
+
 		
 		// Add the text to image
 		imagettftext($image, $font_size, 0, $txt_dest_x, $txt_dest_y, $text_color, $opt['text_watermark_settings']['watermark_font'], html_entity_decode($text));
@@ -304,8 +304,8 @@ class Transparent_Watermark_Tools{
 		$font_size = 72;
 		$size = $this->calculate_text_box_size($opt, $font_size);
 
-		//calculate font size needed to fill the desired wwatermark text width, based on size of original image
-		$font_size_ratio = (.5 * $width)  / $size['width'];
+		//calculate font size needed to fill the desired watermark text width, based on size of original image
+		$font_size_ratio = (($opt['text_watermark_settings']['watermark_text_width'] / 100) * $width)  / $size['width'];
 		
 		$font_size = $font_size * $font_size_ratio;
 			

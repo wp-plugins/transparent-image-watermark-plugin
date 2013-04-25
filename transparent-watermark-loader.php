@@ -3,7 +3,7 @@
 Plugin Name: Transparent Image Watermark
 Plugin URI: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 Description: Add transparent PNG image watermark to your uploaded images.
-Version: 2.3.6
+Version: 2.3.7
 Author: MyWebsiteAdvisor
 Author URI: http://MyWebsiteAdvisor.com
 */
@@ -40,6 +40,7 @@ if ( version_compare( phpversion(), '5.0', '>=') ) {
 	define('TW_LOADER', __FILE__);
 
 	include_once(dirname(__FILE__) . '/transparent-watermark-plugin-installer.php');
+	
 	require_once(dirname(__FILE__) . '/transparent-watermark-settings-page.php');
 	require_once(dirname(__FILE__) . '/transparent-watermark-tools.php');
 	require_once(dirname(__FILE__) . '/transparent-watermark-plugin.php');

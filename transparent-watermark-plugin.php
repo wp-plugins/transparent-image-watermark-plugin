@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.6";
+	private $version = "2.3.7";
 	
 	private $debug = false;
 	
@@ -1124,7 +1124,7 @@ class Transparent_Watermark_Plugin{
             			'html'       => '<input type="hidden">');
 						
 						
-				  
+				  /**
 				  
 				  	$tooltip = "50 means that the watermark will be 50% of the width of the image being watermarked.";
 					$form_html = "<input id='watermark_width' value='$watermark_width' type='text' size='5' style='width:50px !important;'  title='$tooltip' />%";
@@ -1159,11 +1159,11 @@ class Transparent_Watermark_Plugin{
 						
 					  
                   
-                 
+                **/ 
                   
   				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;'> Original";
                 $form_html .= " <a class='watermark_preview' href='".$post->guid."?".filemtime($filepath)."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
-                  
+                  $form_html .= $form_js;
 				  
 				  $form_fields['image-watermark-fullsize']  = array(
             			'label'      => __('Fullsize', 'transparent-watermark'),

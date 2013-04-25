@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin, Security, administration, automatic, media
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.6
+Stable tag: 2.3.7
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -45,6 +45,8 @@ Plugin Support: http://MyWebsiteAdvisor.com/support/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
+Compare Watermark Plugins: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/
+
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
 
@@ -54,7 +56,7 @@ Requirements:
 * PHP v5.0+
 * WordPress v3.3+
 * GD extension for PHP
-
+* FreeType extension for PHP
 
 To-do:
 
@@ -99,6 +101,7 @@ Contact your hosting provider and ask them to enable GD extension for your host,
 Contact your hosting provider and ask them to enable allow_url_fopen, most likely in your php.ini  
 It may be necessary to create a php.ini file inside of the wp-admin directory to enable the allow_url_fopen option.
 
+You can also use a relative url path as a workaround, an example is provided on the settings page.
 
 
 = How do I Remove Watermarks? =
@@ -198,6 +201,11 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 
 == Changelog ==
+
+
+= 2.3.7 =
+* fixed text watermark size adjustment system.
+
 
 = 2.3.6 =
 * updated plugin settings system
