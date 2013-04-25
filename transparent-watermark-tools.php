@@ -91,7 +91,17 @@ class Transparent_Watermark_Tools{
 		$image = $this->get_image_resource($filepath, $mime_type);
 		
 
-		$this->apply_watermark_image($image, $options);
+		
+		// add watermark image to image
+		if($options['watermark_settings']['watermark_type'] == "text-only"){
+		
+			$this->apply_watermark_text($image, $options);
+			
+		}elseif($options['watermark_settings']['watermark_type'] == "image-only"){
+		
+			$this->apply_watermark_image($image, $options);
+			
+		}	
 		
 		
 		// Set the content-type
@@ -153,8 +163,8 @@ class Transparent_Watermark_Tools{
 	 */
 	private function apply_watermark_image($image, array $opt) {
 		// get size and url of watermark
-		$size  =  $opt['watermark_settings']['watermark_image_width'] / 100;
-		$url  =  $opt['watermark_settings']['watermark_image_url'];
+		$size  =  $opt['image_watermark_settings']['watermark_image_width'] / 100;
+		$url  =  $opt['image_watermark_settings']['watermark_image_url'];
 		
 		$watermark = imagecreatefrompng("$url"); 
 		$watermark_width = imagesx($watermark);
@@ -179,6 +189,138 @@ class Transparent_Watermark_Tools{
 	
 	
 
+
+
+	private function apply_watermark_text($image, array $opt) {
+		
+		$text  =  $opt['text_watermark_settings']['watermark_text'];
+		$text_size = $opt['text_watermark_settings']['watermark_text_width'] / 100;
+		$text_color  =  $opt['text_watermark_settings']['watermark_text_color'];
+		$text_transparency  =  $opt['text_watermark_settings']['watermark_text_transparency'];
+		
+		$v_pos = .5;
+		$h_pos = .5;
+		
+		//get size of image watermark will be applied to.
+		$img_width = imagesx($image);
+		$img_height = imagesy($image);
+		
+		//fix font path
+		$opt    = $this->get_full_font_path($opt);
+		
+		//calculate font size as well as the size of the text
+		$font_size = $this->calculate_font_size($opt, $img_width);
+		$text_size = $this->calculate_text_box_size($opt, $font_size);
+
+		//calculate where to position the text
+		$txt_dest_x = ($img_width * $h_pos) - ($text_size['width']/2);
+		$txt_dest_y = ($img_height * $v_pos ) + ($text_size['height']/2);
+			
+		// allocate text color
+		$text_transparency =  (int) (($text_transparency/100) * 127);
+		$text_color  = $this->image_transparent_color_allocate_hex($image, $text_color, $text_transparency);
+		//$text_color = ImageColorAllocateAlpha($image, 255, 255, 255, 96);
+		
+		// Add the text to image
+		imagettftext($image, $font_size, 0, $txt_dest_x, $txt_dest_y, $text_color, $opt['text_watermark_settings']['watermark_font'], html_entity_decode($text));
+
+		return $image;
+	}
+	
+	
+
+
+
+
+	/**
+	 * Get fullpath of font
+	 *
+	 * @param array $opt
+	 * @return unknown
+	 */
+	private function get_full_font_path(array $opt) {
+		$opt['text_watermark_settings']['watermark_font'] = $this->plugin_dir . "/fonts/" . $opt['text_watermark_settings']['watermark_font'];
+
+		return $opt;
+	}
+
+
+
+	/**
+	 * Allocate a color for an image from HEX code
+	 *
+	 * @param resource $image
+	 * @param string $hexstr
+	 * @return int
+	 */
+	private function image_transparent_color_allocate_hex($image, $hexstr, $transparency) {
+		return imagecolorallocatealpha($image,
+			hexdec(substr($hexstr,0,2)),
+			hexdec(substr($hexstr,2,2)),
+			hexdec(substr($hexstr,4,2)),
+			$transparency
+		);
+	}
+	
+
+
+	/**
+	 * Calculate text bounting box size
+	 *
+	 * @param array $opt
+	 * @param int $font_size
+	 * @return array $size
+	 */
+	private function calculate_text_box_size(array $opt, $font_size){
+	
+		$bbox = imagettfbbox(
+			$font_size,
+			0,
+			$opt['text_watermark_settings']['watermark_font'],
+			html_entity_decode($opt['text_watermark_settings']['watermark_text'])
+		);
+
+		//calculate height and width of text
+		$size['width'] = $bbox[4] - $bbox[0];
+		$size['height'] = $bbox[1] - $bbox[7];
+
+		return $size;
+	
+	}
+	
+	
+	
+	
+
+	/**
+	 * Calculate font size
+	 *
+	 * @param array $opt
+	 * @param int $width
+	 * @return int $font_size
+	 */
+	private function calculate_font_size(array $opt, $width) {
+
+		$font_size = 72;
+		$size = $this->calculate_text_box_size($opt, $font_size);
+
+		//calculate font size needed to fill the desired wwatermark text width, based on size of original image
+		$font_size_ratio = (.5 * $width)  / $size['width'];
+		
+		$font_size = $font_size * $font_size_ratio;
+			
+
+		
+		return $font_size;
+	}
+
+
+
+
+
+	
+	
+	
 	
 	/**
 	 * Get array with image size
@@ -227,7 +369,7 @@ class Transparent_Watermark_Tools{
 	private function save_image_file($image, $mime_type, $filepath) {
 		switch ( $mime_type ) {
 			case 'image/jpeg':
-				return imagejpeg($image, $filepath, 100);
+				return imagejpeg($image, $filepath, 90);
 			case 'image/png':
 				return imagepng($image, $filepath);
 			case 'image/gif':
@@ -236,7 +378,36 @@ class Transparent_Watermark_Tools{
 				return false;
 		}
 	}
-
+	
+	
+	
+		
+	function get_relative_path($from, $to){
+		$from     = explode('/', $from);
+		$to       = explode('/', $to);
+		$relPath  = $to;
+	
+		foreach($from as $depth => $dir) {
+			// find first non-matching dir
+			if($dir === $to[$depth]) {
+				// ignore this directory
+				array_shift($relPath);
+			} else {
+				// get number of remaining dirs to $from
+				$remaining = count($from) - $depth;
+				if($remaining > 1) {
+					// add traversals up to first matching dir
+					$padLength = (count($relPath) + $remaining - 1) * -1;
+					$relPath = array_pad($relPath, $padLength, '..');
+					break;
+				} else {
+					$relPath[0] = './' . $relPath[0];
+				}
+			}
+		}
+		return implode('/', $relPath);
+	}
+	
 	
 }
 

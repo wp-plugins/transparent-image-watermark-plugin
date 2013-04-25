@@ -1,10 +1,10 @@
 === Transparent Image Watermark ===
 Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
-Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin
+Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin, Security, administration, automatic, media
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.5.1
+Stable tag: 2.3.6
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -15,16 +15,19 @@ Automatically watermark images as they are uploaded to the WordPress Media Libra
 == Description ==
 This plugin allows you to Automatically add a watermark to all images as they are uploaded to the WordPress Media Library.
 The plugin uses PNG watermark images with transparency for precise control over the appearance of the watermarks.
+This plugin also supports simple text watermarks with adjustable color, size and transparency.
 The user friendly settings page allows for control over the appearance of your watermark.  
 The watermark preview feature allows for easy testing of the plugin settings.
 The watermark size is controlled as a percentage of the target image, 50% means the watermark will be half the width of the target image. 
 
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
+* Fully Adjustable Text Watermark Position
+* Adjustable JPEG Image Output Quality
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
 * Lifetime Priority Support and Update License
 
@@ -100,7 +103,7 @@ It may be necessary to create a php.ini file inside of the wp-admin directory to
 
 = How do I Remove Watermarks? =
 
-This plugin permenantly alters the images to contain the watermarks, so the watermarks can not be removed. 
+This plugin permanently alters the images to contain the watermarks, so the watermarks can not be removed. 
 If you want to simply test this plugin, or think you may want to remove the watermarks, you need to make a backup of your images before you use the plugin to add watermarks.
 <a href="http://wordpress.org/extend/plugins/simple-backup/">**Try Simple Backup Plugin**</a>
 
@@ -110,11 +113,13 @@ If you want to simply test this plugin, or think you may want to remove the wate
 
 We have a premium version of this plugin that adds the capability to manually add watermarks to images in the WordPress Media Library.
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
+* Fully Adjustable Text Watermark Position
+* Adjustable JPEG Image Output Quality
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
 * Lifetime Priority Support and Update License
 
@@ -125,11 +130,13 @@ watermark features including:
 We have a premium version of this plugin that adds the capability to adjust the location of the watermarks.
 The position can be adjusted both vertically and horizontally.
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
+* Fully Adjustable Text Watermark Position
+* Adjustable JPEG Image Output Quality
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
 * Lifetime Priority Support and Update License
 
@@ -144,11 +151,13 @@ That way the watermark image will be scaled down, which will work better than ma
 We also have a premium version of this plugin that adds the capability to resample the watermark image, rather than simply resize it.
 This results in significantly better looking watermarks.
 
-<a href="http://mywebsiteadvisor.com/products-page/premium-wordpress-plugins/transparent-watermark-plugin-ultra-version/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
 * Fully Adjustable Image Watermark Position
+* Fully Adjustable Text Watermark Position
+* Adjustable JPEG Image Output Quality
 * Highest Quality Watermarks using Image Re-sampling rather than Re-sizing
 * Lifetime Priority Support and Update License
 
@@ -167,6 +176,8 @@ Plugin Support: http://MyWebsiteAdvisor.com/support/
 
 Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
 
+Compare Watermark Plugins: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/
+
 Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent-image-watermark-tutorial/
 
 
@@ -177,14 +188,24 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 == Screenshots ==
 
-1. Watermark Settings Page
-2. Watermark Preview Page
-3. Finished Example Image
+1. General Watermark Settings Page
+2. Text Watermark Settings Page
+3. Image Watermark Settings Page
+4. Watermark Preview Page
+6. Finished Example Image
 
 
 
 
 == Changelog ==
+
+= 2.3.6 =
+* updated plugin settings system
+* added simple text watermark option
+* added info about workaround for users who have 'allow_url_fopen' disabled, using relative path to watermark image.
+* updated default JPEG output quality from 100 to 90 to reduce file bloat, added option to ultra version to adjust output quality.
+* updated plugin screenshots
+
 
 = 2.3.5.1 =
 * updated links to plugin page
