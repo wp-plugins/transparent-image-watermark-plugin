@@ -33,15 +33,15 @@ class Transparent_Watermark_Tools{
 	 * @param array $data
 	 * @return array
 	 */
-	public function apply_watermark($data) {
+	public function apply_watermark( $metadata, $attachment_id) {
 		// get settings for watermarking
 		$upload_dir   = wp_upload_dir();
 		$options = $this->opt;
 		$watermark_sizes = $options['watermark_settings']['image_sizes'];
 		$watermark_types = $options['watermark_settings']['image_types'];
 			
-		if(isset($data['file'])){
-			$mime_type = wp_check_filetype($upload_dir['basedir'] . DIRECTORY_SEPARATOR . $data['file']);
+		if(isset($metadata['file'])){
+			$mime_type = wp_check_filetype($upload_dir['basedir'] . DIRECTORY_SEPARATOR . $metadata['file']);
 			
 			//$allowed_types = array('jpg', 'png', 'gif');
 			$allowed_types = array_keys( $watermark_types );
@@ -53,11 +53,11 @@ class Transparent_Watermark_Tools{
 					if($on == true) {
 						switch($image_size) {
 							case 'fullsize':
-								$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $data['file'];
+								$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $metadata['file'];
 								break;
 							default:
-								if(!empty($data['sizes']) && array_key_exists($image_size, $data['sizes'])) {
-									$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . dirname($data['file']) . DIRECTORY_SEPARATOR . $data['sizes'][$image_size]['file'];
+								if(!empty($metadata['sizes']) && array_key_exists($image_size, $metadata['sizes'])) {
+									$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . dirname($metadata['file']) . DIRECTORY_SEPARATOR . $metadata['sizes'][$image_size]['file'];
 								} else {
 									// early getaway
 									continue 2;
@@ -65,14 +65,14 @@ class Transparent_Watermark_Tools{
 						}
 						
 						// ... and apply watermark
-						$this->do_watermark($filepath);
+						$this->do_watermark($filepath, $attachment_id);
 					}
 				}
 			}
 		}
 		
 		// pass forward attachment metadata
-		return $data;
+		return $metadata;
 	}
 	
 	
@@ -123,7 +123,7 @@ class Transparent_Watermark_Tools{
 	 * @param string $filepath
 	 * @return boolean
 	 */
-	public function do_watermark($filepath) {
+	public function do_watermark($filepath, $attachment_id) {
 		
 		//get plugin options
 		$options = $this->opt;
@@ -139,10 +139,26 @@ class Transparent_Watermark_Tools{
 	
 			// get image resource
 			$image = $this->get_image_resource($filepath, $mime_type);
-	
 			
-			// add watermark image to image
-			$this->apply_watermark_image($image, $options);
+			
+			//create backup image if not disabled
+			if($this->opt['watermark_settings']['watermark_backup'] !== 'backup-disabled'){
+				
+				$this->save_image_backup_file($image, $mime_type, $filepath, $attachment_id);
+				
+			}
+		
+		
+			// add watermarks  to image
+			if($options['watermark_settings']['watermark_type'] == "text-only"){
+			
+				$this->apply_watermark_text($image, $options);
+				
+			}elseif($options['watermark_settings']['watermark_type'] == "image-only"){
+			
+				$this->apply_watermark_image($image, $options);
+				
+			}	
 		
 			
 			// save watermarked image
@@ -376,6 +392,50 @@ class Transparent_Watermark_Tools{
 				return imagegif($image, $filepath);
 			default:
 				return false;
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * Save image backup file from image resource
+	 *
+	 * @param resource $image
+	 * @param string $mime_type
+	 * @param string $filepath
+	 * @return boolean
+	 */
+	private function save_image_backup_file($image, $mime_type, $filepath, $attachment_id) {
+		
+		$path_info = pathinfo($filepath);
+		$suffix = time() . rand(100, 999);
+		$backup_file_path = $path_info['dirname'] ."/". $path_info['filename'] . "-" . $suffix . "." . $path_info['extension'];
+		
+		$key = $path_info['filename'];
+		
+		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
+		
+		if(!array_key_exists($key, $bk_meta)){
+			
+			$bk_meta[$key]['bk_path']	 		= $backup_file_path;
+			$bk_meta[$key]['original_path'] 	= $filepath;
+		
+			error_log("update_post_meta $attachment_id, $backup_file_path");
+			update_post_meta( $attachment_id, '_watermark_backups', $bk_meta);
+			
+			
+			switch ( $mime_type ) {
+				case 'image/jpeg':
+					return imagejpeg($image, $backup_file_path, 90);
+				case 'image/png':
+					return imagepng($image, $backup_file_path);
+				case 'image/gif':
+					return imagegif($image, $backup_file_path);
+				default:
+					return false;
+			}
+			
 		}
 	}
 	

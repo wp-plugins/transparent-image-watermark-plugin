@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.7";
+	private $version = "2.3.8";
 	
 	private $debug = false;
 	
@@ -67,7 +67,7 @@ class Transparent_Watermark_Plugin{
 		if(!(array_key_exists('post_id', $_REQUEST) && $_REQUEST['post_id'] == -1)) {
 		
 			// add filter for watermarking images
-			add_filter('wp_generate_attachment_metadata', array(&$this->tools, 'apply_watermark'));
+			add_filter('wp_generate_attachment_metadata', array(&$this->tools, 'apply_watermark'), 10, 2);
 			
 		}
 		
@@ -75,10 +75,19 @@ class Transparent_Watermark_Plugin{
 		$show_on_upload_screen = $this->opt['watermark_settings']['show_on_upload_screen'];			 
 		if($show_on_upload_screen === "true"){	
 		
+			add_action( 'admin_enqueue_scripts', array($this, 'add_watermark_js') );
+			
 			add_filter('attachment_fields_to_edit', array(&$this, 'attachment_field_add_watermark'), 10, 2);
 			
+			
 		}
+		
+		add_action('wp_ajax_revert_watermarks', array(&$this, 'revert_watermarks'));
 				
+				
+		//hook on delete_attachment action to delete all of the backups created before watermarks were applied
+		add_action('delete_attachment', array($this, 'delete_attachment_watermark_backups'));
+		
 	
 		//check pluign settings and display alert to configure and save plugin settings
 		add_action( 'admin_init', array(&$this, 'check_plugin_settings') );
@@ -106,7 +115,54 @@ class Transparent_Watermark_Plugin{
 	}
 	
 	
+	
+	
+	public function add_watermark_js(){
+		
+		wp_enqueue_script('transparent-watermark-script', $this->plugin_url . "watermark.js");
+		
+	}
+	
+	
+	
+	
+	
+	function delete_attachment_watermark_backups($attachment_id){
+		
+		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
+		
+		foreach($bk_meta as $key => $info){
+			@unlink( $info['bk_path'] );
+		}
+		
+	}
 
+
+
+
+	function revert_watermarks(){
+		
+		check_ajax_referer( 'revert-watermarks', 'security' );
+		
+		$attachment_id = $_POST['post_id'];
+		
+		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
+		
+		foreach($bk_meta as $key => $info){
+			
+			@unlink( $info['original_path'] );
+			copy( $info['bk_path'] , $info['original_path'] );
+			@unlink( $info['bk_path'] );
+			echo "Removed Watermark: " . $info['original_path'] . "\r\n";
+			
+		}
+		
+		delete_post_meta($attachment_id, '_watermark_backups');
+		
+		die();
+		
+	}
+	
 	
 	
 	public function settings_page_init() {
@@ -353,10 +409,21 @@ class Transparent_Watermark_Plugin{
                         'gif' => '.GIF'
                     )
                 ),
+				array(
+                    'name' 		=> 'watermark_backup',
+                    'label' 		=> __( 'Watermark Backup', $this->plugin_name ),
+					'desc' 		=> __( "Create a Backup of each image before it is watermarked so watermarks can be removed.", $this->plugin_name ),
+                    'type' 		=> 'radio',
+					'default' 	=> 'backup-enabled',
+                    'options' 	=> array(
+						'backup-enabled'	 	=> 'Backup Enabled',
+                        'backup-disabled' 	=> 'Backup Disabled' 
+                    )
+                ),
                 array(
                     'name' => 'show_on_upload_screen',
-                    'label' => __( 'Show Advanced Preview', $this->plugin_name ),
-                    'desc' => __( "Show Preview of Advanced Watermark Features on Upload Screen<br>(Feature Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)", $this->plugin_name ),
+                    'label' => __( 'Show Advanced Features', $this->plugin_name ),
+                    'desc' => __( "Show Advanced Watermark Features on Upload Screen<br><b>Must Be Enabled to Remove Watermarks</b><br>(Some Features Available in Ultra Version Only, <a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/' target='_blank'>Click Here for More Information!</a>)", $this->plugin_name ),
                     'type' => 'radio',
                     'options' => array(
                         'true' => 'Enabled',
@@ -1072,7 +1139,9 @@ class Transparent_Watermark_Plugin{
 
                                                   
                           
-                       $attachment_info =  wp_get_attachment_metadata($post->ID);        
+                       $attachment_info =  wp_get_attachment_metadata($post->ID);   
+					   
+					   $bk_meta = get_post_meta($post->ID, '_watermark_backups', true);     
                         
                        $sizes = array();                           
                                                   
@@ -1123,45 +1192,17 @@ class Transparent_Watermark_Plugin{
             			'input'      => 'html',
             			'html'       => '<input type="hidden">');
 						
+					
+					$checked = "";
 						
-				  /**
-				  
-				  	$tooltip = "50 means that the watermark will be 50% of the width of the image being watermarked.";
-					$form_html = "<input id='watermark_width' value='$watermark_width' type='text' size='5' style='width:50px !important;'  title='$tooltip' />%";
- 					
-					
-					$form_fields['image-watermark-width']  = array(
-            			'label'      => __('Width', 'transparent-watermark'),
-            			'input'      => 'html',
-            			'html'       => $form_html
-					);
-				       
-					
-					$tooltip = "50 means that the image is centered vertically, 10 means it is 10% from the top.";	              
-					$form_html = "<input id='watermark_vertical_location' value='$watermark_vertical_location' type='text'  size='5' style='width:50px !important;' title='$tooltip' />%";
-					
-					$form_html .= $form_js;
-					  
-					  $form_fields['image-watermark-vertical-location']  = array(
-							'label'      => __('Vertical', 'transparent-watermark'),
-            			'input'      => 'html',
-            			'html'       => $form_html
-					);
 						
-					$tooltip = "50 means that the image is centered horizontally, 10 means it is 10% from the left.";
-					$form_html = "<input id='watermark_horizontal_location' value='$watermark_horizontal_location' type='text' size='5' style='width:50px !important;' title='$tooltip' />%";
+					foreach($bk_meta as $key => $bk){
+	                 	if($bk['original_path'] == $filepath){
+							$checked = 'checked="checked" ';	
+						}
+					}
 					
-					 $form_fields['image-watermark-horizontal-location']  = array(
-            			'label'      => __('Horizontal', 'transparent-watermark'),
-            			'input'      => 'html',
-            			'html'       => $form_html
-					);
-						
-					  
-                  
-                **/ 
-                  
-  				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;'> Original";
+  				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;' ".$checked."  class='attachment_sizes'> Original";
                 $form_html .= " <a class='watermark_preview' href='".$post->guid."?".filemtime($filepath)."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
                   $form_html .= $form_js;
 				  
@@ -1179,7 +1220,15 @@ class Transparent_Watermark_Plugin{
 						$current_filepath = str_replace($filename, $size['file'], $filepath);
 						
                     
-						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;'> ".$size['width'] . "x" . $size['height'];
+						$checked = "";
+							
+						foreach($bk_meta as $key => $bk){
+							if($bk['original_path'] == $current_filepath){
+								$checked = 'checked="checked" ';	
+							}
+						}
+					
+						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;' ".$checked."  class='attachment_sizes'> ".$size['width'] . "x" . $size['height'];
 						$form_html .= " <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?".filemtime($current_filepath)."' target='_blank'>" . $size['file'] . "</a></p>";
 					
 						$id = 'image-watermark-' . $size['width'] . "x" . $size['height'];
@@ -1193,8 +1242,18 @@ class Transparent_Watermark_Plugin{
                   }
 
                   
-                  $form_html = "<input type='button' class='button-primary' name='Add Watermark' value='Add Watermark' onclick='image_add_watermark();'>";
-                  $form_html .= "<script type='text/javascript' src='"."../".PLUGINDIR . "/". dirname(plugin_basename(__FILE__))."/watermark.js'></script>";  
+                  	$form_html = "<input type='button' class='button-primary' name='Add Watermark's value='Add Watermarks' onclick='image_add_watermark();'> ";
+                 
+				 	if($bk_meta != ''){
+				 		$form_html .= "<input type='button' class='button' name='Remove Watermarks' value='Remove All Watermarks' onclick='image_revert_watermarks();'>";
+					}
+					
+					
+					
+					$revert_watermarks_nonce = wp_create_nonce("revert-watermarks");
+					
+					$attachment_id = $post->ID;
+					
 				  $form_html .= "<script type='text/javascript'>
                   
 				  				var el = jQuery('.compat-attachment-fields');
@@ -1202,16 +1261,44 @@ class Transparent_Watermark_Plugin{
                                               imagePreview();
                                       });       
                   		
-                  		 function image_add_watermark(){
+									function image_add_watermark(){
+										var upgrade = confirm('Sorry, This feature is only available in the Ultra Version!   Press Ok if you would like to Learn More!');
+										
+										 if (upgrade == true) window.open('http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/');
+									 }
+									 
+									 
+									 function image_revert_watermarks(){
+										 
+										 var allVals = [];
+                                                 jQuery('.attachment_sizes:checked').each(function() {
+                                                   allVals.push(jQuery(this).val());
+                                                 });
+                  
+										 
+										 var ajax_data = {
+											 'post_id' : $attachment_id,
+											 'images_url_list': allVals, 
+											 'revert_watermarks':'revert_watermarks', 
+											 'action': 'revert_watermarks', 
+											 'security': '$revert_watermarks_nonce'
+										 };
                                                   
-                                                  alert('Sorry, This feature is only available in the Ultra Version!  Please Upgrade at http://MyWebsiteAdvisor.com');
-						window.open('http://mywebsiteadvisor.com/tools/wordpress-plugins/transparent-image-watermark/');
-                                           
-										                                                              
-                                                  
-                                          }
-										  
-										  setTimeout(imagePreview, 100);
+                                                  jQuery.ajax({
+                                                    type: 'POST',
+                                                    url:  ajaxurl,
+                                                    data: ajax_data,
+                                                    success: function(data){
+                                                  	alert(data);
+                                                      	location.reload();
+                                                    }
+                                                  });
+										 
+									 }
+									 
+									 
+								 
+								setTimeout(imagePreview, 100);
                                                                                         
                                       </script>";        
                        

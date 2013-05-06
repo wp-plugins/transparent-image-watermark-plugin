@@ -1,10 +1,10 @@
 === Transparent Image Watermark ===
 Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
-Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, Plugin, Page, Admin, Security, administration, automatic, media
+Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, posts, Plugin, Page, Admin, Security, administration, automatic, media
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.7
+Stable tag: 2.3.8
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -201,6 +201,12 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 
 == Changelog ==
+
+
+= 2.3.8 =
+* fixed text watermark system.
+* added image backup system option.
+* added remove watermarks button to the edit media screen, will only show up when backups are available.
 
 
 = 2.3.7 =
