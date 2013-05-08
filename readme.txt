@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, posts, Plugin, Page, Admin, Security, administration, automatic, media
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.9
+Stable tag: 2.3.10
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -19,6 +19,7 @@ This plugin also supports simple text watermarks with adjustable color, size and
 The user friendly settings page allows for control over the appearance of your watermark.  
 The watermark preview feature allows for easy testing of the plugin settings.
 The watermark size is controlled as a percentage of the target image, 50% means the watermark will be half the width of the target image. 
+Watermarks are now removable with the new backup system, any images watermarked while the new backup system is enabled are able to be restored to the original image.
 
 
 <a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
@@ -202,11 +203,15 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 == Changelog ==
 
+= 2.3.10 =
+* more improvements to the edit-media page, condensed form to display better on the insert media sidebar
+* fixed typos in readme
+
 
 = 2.3.9 =
 * fixed issue causing error message when deleting non-watermarked image.
 * fixed ereg_replace depricated message
-* updated the edit media page to display the image size names, rahter than the image dimensions
+* updated the edit media page to display the image size names, rather than the image dimensions
 
 
 

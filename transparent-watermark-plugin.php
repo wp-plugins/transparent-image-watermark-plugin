@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.9";
+	private $version = "2.3.10";
 	
 	private $debug = false;
 	
@@ -78,8 +78,7 @@ class Transparent_Watermark_Plugin{
 			add_action( 'admin_enqueue_scripts', array($this, 'add_watermark_js') );
 			
 			add_filter('attachment_fields_to_edit', array(&$this, 'attachment_field_add_watermark'), 10, 2);
-			
-			
+				
 		}
 		
 		add_action('wp_ajax_revert_watermarks', array(&$this, 'revert_watermarks'));
@@ -117,53 +116,7 @@ class Transparent_Watermark_Plugin{
 	
 	
 	
-	public function add_watermark_js(){
-		
-		wp_enqueue_script('transparent-watermark-script', $this->plugin_url . "watermark.js");
-		
-	}
-	
-	
-	
-	
-	
-	function delete_attachment_watermark_backups($attachment_id){
-		
-		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
-		
-		if(isset($bk_meta) && is_array($bk_meta)){
-			foreach($bk_meta as $key => $info){
-				@unlink( $info['bk_path'] );
-			}
-		}
-		
-	}
 
-
-
-
-	function revert_watermarks(){
-		
-		check_ajax_referer( 'revert-watermarks', 'security' );
-		
-		$attachment_id = $_POST['post_id'];
-		
-		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
-		
-		foreach($bk_meta as $key => $info){
-			
-			@unlink( $info['original_path'] );
-			copy( $info['bk_path'] , $info['original_path'] );
-			@unlink( $info['bk_path'] );
-			echo "Removed Watermark: " . $info['original_path'] . "\r\n";
-			
-		}
-		
-		delete_post_meta($attachment_id, '_watermark_backups');
-		
-		die();
-		
-	}
 	
 	
 	
@@ -1111,8 +1064,7 @@ class Transparent_Watermark_Plugin{
 
 	public function attachment_field_add_watermark($form_fields, $post){
     		if ($post->post_mime_type == 'image/jpeg' || $post->post_mime_type == 'image/gif' || $post->post_mime_type == 'image/png') {
-                       
-                                             
+                                            
 					$form_js = "<style>
 						#watermark_preview {
 							position:absolute;
@@ -1133,52 +1085,7 @@ class Transparent_Watermark_Plugin{
 						}   
 														 
 					</style>";    
-														   
-                      /**   
-                          
-                       $attachment_info =  wp_get_attachment_metadata($post->ID);   
-					   
-					   $bk_meta = get_post_meta($post->ID, '_watermark_backups', true);     
-                        
-                       $sizes = array();                           
-                                                  
-                      foreach($attachment_info['sizes'] as $size){
-                        
-                        	$sizes[$size['width']] = $size;
-                        
-                        
-                      }
-                                                  
-                        //$sizes = array_unique($sizes);
-                  	krsort($sizes);
-                  
 
-
-                  	$upload_dir   = wp_upload_dir();
-                  
-                  	$url_info = parse_url($post->guid);
-  					$url_info['path'] = str_replace("/wp-content/uploads/", "/", $url_info['path']);
-  
-  					$filepath = $upload_dir['basedir']  . $url_info['path'];
-
-                  
-    
-                  	$path_info = pathinfo($url_info['path']);
-                  	
-                  	$base_filename = $path_info['basename'];
-                  	$base_path = str_replace($base_filename, "", $post->guid);
-					
- 			 
-			 
-                  	$url_info = parse_url($post->guid);
-					$url_info['path'] = ereg_replace("/wp-content/uploads/", "/", $url_info['path']);
-
-					$path_info = pathinfo($post->guid);
-					$url_base = $path_info['dirname']."/".$path_info['filename'] . "." . $path_info['extension'];
-					$filepath = ABSPATH . str_replace(get_option('siteurl'), "", $url_base);
-					$filepath = str_replace("//", "/", $filepath);
-                  **/
-                  
 				  
 				  
 				  		$image_url = $post->guid;             
@@ -1225,16 +1132,18 @@ class Transparent_Watermark_Plugin{
 					 $time = file_exists($file_path) ? filemtime($file_path) : rand(10000,500000);
 					 
 					$checked = "";
+					$disabled = "";
 						
 					if(isset($bk_meta) && is_array($bk_meta)){	
 						foreach($bk_meta as $key => $bk){
 							if($bk['original_path'] == $file_path){
 								$checked = 'checked="checked" ';	
+								$disabled = 'disabled="disabled" ';	
 							}
 						}
 					}
 					
-  				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;' ".$checked."  class='attachment_sizes'> Original";
+  				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;' ".$checked." " . $disabled . "   class='attachment_sizes'> Original";
                 $form_html .= " <a class='watermark_preview' href='".$post->guid."?". $time ."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
                   $form_html .= $form_js;
 				  
@@ -1252,16 +1161,18 @@ class Transparent_Watermark_Plugin{
 						
                     
 						$checked = "";
+						$disabled = "";
 							
 						if( isset($bk_meta) && is_array($bk_meta) ){	
 							foreach($bk_meta as $key => $bk){
 								if($bk['original_path'] == $current_filepath){
 									$checked = 'checked="checked" ';	
+									$disabled = 'disabled="disabled" ';	
 								}
 							}
 						}
 						
-						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;' ".$checked."  class='attachment_sizes'> ".$size['width'] . "x" . $size['height'];
+						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;' ".$checked." " . $disabled . "  class='attachment_sizes'> ".ucwords($name);
 						$form_html .= " <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?". $time ."' target='_blank'>" . $size['file'] . "</a></p>";
 					
 						$id = 'image-watermark-' . $size['width'] . "x" . $size['height'];
@@ -1402,6 +1313,62 @@ class Transparent_Watermark_Plugin{
 	}
 
 			
+			
+			
+			
+			
+
+	// add plugin js file
+	public function add_watermark_js(){
+		
+		wp_enqueue_script('transparent-watermark-script', $this->plugin_url . "watermark.js");
+		
+	}
+	
+	
+	
+	
+	// deletes backup image files when the main image attachment is deleted
+	function delete_attachment_watermark_backups($attachment_id){
+		
+		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
+		
+		if(isset($bk_meta) && is_array($bk_meta)){
+			foreach($bk_meta as $key => $info){
+				@unlink( $info['bk_path'] );
+			}
+		}
+		
+	}
+
+
+
+	// overwrite the watermarked copy with the backup copy
+	function revert_watermarks(){
+		
+		check_ajax_referer( 'revert-watermarks', 'security' );
+		
+		$attachment_id = $_POST['post_id'];
+		
+		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
+		
+		foreach($bk_meta as $key => $info){
+			
+			@unlink( $info['original_path'] );
+			copy( $info['bk_path'] , $info['original_path'] );
+			@unlink( $info['bk_path'] );
+			echo "Removed Watermark: " . $info['original_path'] . "\r\n";
+			
+		}
+		
+		delete_post_meta($attachment_id, '_watermark_backups');
+		
+		die();
+		
+	}
+	
+	
+	
 		
 }
  
