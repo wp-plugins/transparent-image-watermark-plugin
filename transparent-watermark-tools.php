@@ -414,14 +414,20 @@ class Transparent_Watermark_Tools{
 		
 		$key = $path_info['filename'];
 		
-		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
+		if( get_post_meta($attachment_id, '_watermark_backups', true) ){
+			$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
+		}else{
+			$bk_meta = array();
+		}
 		
+		
+
 		if(!array_key_exists($key, $bk_meta)){
 			
 			$bk_meta[$key]['bk_path']	 		= $backup_file_path;
 			$bk_meta[$key]['original_path'] 	= $filepath;
 		
-			error_log("update_post_meta $attachment_id, $backup_file_path");
+		
 			update_post_meta( $attachment_id, '_watermark_backups', $bk_meta);
 			
 			
@@ -437,6 +443,7 @@ class Transparent_Watermark_Tools{
 			}
 			
 		}
+		
 	}
 	
 	

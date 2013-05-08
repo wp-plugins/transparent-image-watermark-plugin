@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.8";
+	private $version = "2.3.9";
 	
 	private $debug = false;
 	
@@ -131,8 +131,10 @@ class Transparent_Watermark_Plugin{
 		
 		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
 		
-		foreach($bk_meta as $key => $info){
-			@unlink( $info['bk_path'] );
+		if(isset($bk_meta) && is_array($bk_meta)){
+			foreach($bk_meta as $key => $info){
+				@unlink( $info['bk_path'] );
+			}
 		}
 		
 	}
@@ -1110,13 +1112,9 @@ class Transparent_Watermark_Plugin{
 	public function attachment_field_add_watermark($form_fields, $post){
     		if ($post->post_mime_type == 'image/jpeg' || $post->post_mime_type == 'image/gif' || $post->post_mime_type == 'image/png') {
                        
-				//$ajax_url = "../".PLUGINDIR . "/". dirname(plugin_basename (__FILE__))."/watermark_ajax.php";     
-				$image_url = $post->guid;                          
-                                                  
-                                                  
+                                             
 					$form_js = "<style>
-					
-						#watermark_preview{
+						#watermark_preview {
 							position:absolute;
 							border:1px solid #ccc;
 							background:#333;
@@ -1124,20 +1122,19 @@ class Transparent_Watermark_Plugin{
 							display:none;		 
 							color:#fff;
 						}
-						#watermark_preview img{
+						#watermark_preview img {
 							max-width:300px;  
 							max-height:300px;     
 							z-index:200000;                                    
 						} 
 						
-						p#watermark_preview{
+						p#watermark_preview {
 							z-index:200000; 
 						}   
 														 
 					</style>";    
 														   
-
-                                                  
+                      /**   
                           
                        $attachment_info =  wp_get_attachment_metadata($post->ID);   
 					   
@@ -1180,12 +1177,44 @@ class Transparent_Watermark_Plugin{
 					$url_base = $path_info['dirname']."/".$path_info['filename'] . "." . $path_info['extension'];
 					$filepath = ABSPATH . str_replace(get_option('siteurl'), "", $url_base);
 					$filepath = str_replace("//", "/", $filepath);
+                  **/
                   
+				  
+				  
+				  		$image_url = $post->guid;             
+						                 							
+                       $attachment_info =  wp_get_attachment_metadata($post->ID);  
+						
+						$bk_meta = get_post_meta($post->ID, '_watermark_backups', true);   
+						  
+                       $sizes = array();                           
+                       if(isset($attachment_info) && isset($attachment_info['sizes']) ){                           
+						  foreach($attachment_info['sizes'] as $name => $size){
+								$sizes[$name] = $size;
+						  }
+					   }
+                  	krsort($sizes);
                   
-                  $watermark_horizontal_location = 50;
-                  $watermark_vertical_location = 50;
-                  $watermark_image = $this->opt['watermark_settings']['watermark_image_url'];
-                  $watermark_width = $this->opt['watermark_settings']['watermark_image_width'];
+				  
+    				//get the filename with extension (stip url path) for the upload
+                  	$path_info = pathinfo($image_url);
+                  	$base_filename = $path_info['basename'];		
+ 
+					
+					//get uploads sub dir
+					$uploads_subdir = "/" . str_replace($base_filename, "", $attachment_info['file']);
+  
+				  
+					//basic uloads location info				  
+                  	$upload_dir   = wp_upload_dir();
+					$base_path = $upload_dir['basedir'];
+					$base_url = $upload_dir['baseurl'];
+
+				  
+					$file_path = $base_path  . $uploads_subdir . $base_filename;
+					$file_url = $base_url   . $uploads_subdir . $base_filename;
+					
+					
                   
 				  	$form_fields['image-watermark-header']  = array(
             			'label'      => __('<h3>Transparent Watermark Settings</h3>', 'transparent-watermark'),
@@ -1193,17 +1222,20 @@ class Transparent_Watermark_Plugin{
             			'html'       => '<input type="hidden">');
 						
 					
+					 $time = file_exists($file_path) ? filemtime($file_path) : rand(10000,500000);
+					 
 					$checked = "";
 						
-						
-					foreach($bk_meta as $key => $bk){
-	                 	if($bk['original_path'] == $filepath){
-							$checked = 'checked="checked" ';	
+					if(isset($bk_meta) && is_array($bk_meta)){	
+						foreach($bk_meta as $key => $bk){
+							if($bk['original_path'] == $file_path){
+								$checked = 'checked="checked" ';	
+							}
 						}
 					}
 					
   				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;' ".$checked."  class='attachment_sizes'> Original";
-                $form_html .= " <a class='watermark_preview' href='".$post->guid."?".filemtime($filepath)."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
+                $form_html .= " <a class='watermark_preview' href='".$post->guid."?". $time ."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
                   $form_html .= $form_js;
 				  
 				  $form_fields['image-watermark-fullsize']  = array(
@@ -1212,30 +1244,31 @@ class Transparent_Watermark_Plugin{
             			'html'       => $form_html);
 				  
 				  
-                  foreach($sizes as $size){
+                   foreach($sizes as $name => $size){
               
-						$image_link = $base_path.$size['file'];
-						
-						$filename = $path_info['filename'].".".$path_info['extension'];
-						$current_filepath = str_replace($filename, $size['file'], $filepath);
+						$image_link = $base_url . $uploads_subdir .$size['file'];
+						$current_filepath = $base_path  . $uploads_subdir . $size['file'];
+						$time = file_exists($current_filepath) ? filemtime($current_filepath) : rand(10000,500000);
 						
                     
 						$checked = "";
 							
-						foreach($bk_meta as $key => $bk){
-							if($bk['original_path'] == $current_filepath){
-								$checked = 'checked="checked" ';	
+						if( isset($bk_meta) && is_array($bk_meta) ){	
+							foreach($bk_meta as $key => $bk){
+								if($bk['original_path'] == $current_filepath){
+									$checked = 'checked="checked" ';	
+								}
 							}
 						}
-					
+						
 						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;' ".$checked."  class='attachment_sizes'> ".$size['width'] . "x" . $size['height'];
-						$form_html .= " <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?".filemtime($current_filepath)."' target='_blank'>" . $size['file'] . "</a></p>";
+						$form_html .= " <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?". $time ."' target='_blank'>" . $size['file'] . "</a></p>";
 					
 						$id = 'image-watermark-' . $size['width'] . "x" . $size['height'];
 					
 					
 						 $form_fields[ $id ]  = array(
-            			'label'      => __($size['width'] . "x" . $size['height'], 'transparent-watermark'),
+            			'label'      => __(ucwords($name), 'transparent-watermark'),
             			'input'      => 'html',
             			'html'       => $form_html);
 					
