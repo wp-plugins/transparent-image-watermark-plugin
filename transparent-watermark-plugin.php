@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.10";
+	private $version = "2.3.11";
 	
 	private $debug = false;
 	
@@ -141,15 +141,12 @@ class Transparent_Watermark_Plugin{
 	public function check_plugin_settings(){
 		if( isset($_GET['page']) ){
 			if ($_GET['page'] == "transparent-watermark"  ){
-			
-				//$this->update_plugin_settings();
-				
 				if(false === get_option($this->setting_name)){
+					
 					$link = admin_url()."options-general.php?page=transparent-watermark-settings&tab=watermark_settings";
 					$message = '<div class="error"><p>Welcome!<br>This plugin needs to be configured before you watermark your images.';
 					$message .= '<br>Please Configure and Save the <a href="%1$s">Plugin Settings</a> before you continue!!</p></div>';
 					echo sprintf($message, $link);
-					
 					
 				}
 			}
@@ -1064,7 +1061,10 @@ class Transparent_Watermark_Plugin{
 
 	public function attachment_field_add_watermark($form_fields, $post){
     		if ($post->post_mime_type == 'image/jpeg' || $post->post_mime_type == 'image/gif' || $post->post_mime_type == 'image/png') {
-                                            
+				
+            	$show_on_upload_screen = $this->opt['watermark_settings']['show_on_upload_screen'];
+				if($show_on_upload_screen === "true"){	 
+				                           
 					$form_js = "<style>
 						#watermark_preview {
 							position:absolute;
@@ -1143,7 +1143,7 @@ class Transparent_Watermark_Plugin{
 						}
 					}
 					
-  				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;' ".$checked." " . $disabled . "   class='attachment_sizes'> Original";
+  				$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$post->guid."' style='width:auto;' ".$checked." " . $disabled . "   class='attachment_sizes'> ";
                 $form_html .= " <a class='watermark_preview' href='".$post->guid."?". $time ."' title='$base_filename Preview' target='_blank'>" . $base_filename . "</a></p>";
                   $form_html .= $form_js;
 				  
@@ -1172,7 +1172,7 @@ class Transparent_Watermark_Plugin{
 							}
 						}
 						
-						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;' ".$checked." " . $disabled . "  class='attachment_sizes'> ".ucwords($name);
+						$form_html = "<p><input type='checkbox' name='attachment_size[]' value='".$base_path.$size['file']."' style='width:auto;' ".$checked." " . $disabled . "  class='attachment_sizes'> ";
 						$form_html .= " <a class='watermark_preview' title='".$size['file']." Preview'  href='".$image_link."?". $time ."' target='_blank'>" . $size['file'] . "</a></p>";
 					
 						$id = 'image-watermark-' . $size['width'] . "x" . $size['height'];
@@ -1251,25 +1251,12 @@ class Transparent_Watermark_Plugin{
             			'input'      => 'html',
             			'html'       => $form_html);      
 							   
+							   	
 							   
-					$show_on_upload_screen = $this->opt['watermark_settings']['show_on_upload_screen'];
-							 
-						if($show_on_upload_screen === "true"){	   
-							                   
-                         	return $form_fields;   
-							   
-						}else{
-						
-							return "";
-							
-						}                      
-                                                  
-                                                  
-                } else {
-                 	return false; 
+					}
                 }
 				
-				
+			return $form_fields;   
 
     	}     
 		
@@ -1352,14 +1339,18 @@ class Transparent_Watermark_Plugin{
 		
 		$bk_meta = get_post_meta($attachment_id, '_watermark_backups', true);
 		
-		foreach($bk_meta as $key => $info){
-			
-			@unlink( $info['original_path'] );
-			copy( $info['bk_path'] , $info['original_path'] );
-			@unlink( $info['bk_path'] );
-			echo "Removed Watermark: " . $info['original_path'] . "\r\n";
-			
+		if(isset($bk_meta)){
+			foreach($bk_meta as $key => $info){
+				
+				@unlink( $info['original_path'] );
+				copy( $info['bk_path'] , $info['original_path'] );
+				@unlink( $info['bk_path'] );
+				echo "Removed Watermark: " . $info['original_path'] . "\r\n";
+				
+			}
 		}
+		
+		echo "Done!!!";
 		
 		delete_post_meta($attachment_id, '_watermark_backups');
 		
