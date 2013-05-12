@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, posts, Plugin, Page, Admin, Security, administration, automatic, media
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.11
+Stable tag: 2.3.12
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -202,6 +202,13 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 
 == Changelog ==
+
+
+= 2.3.12 =
+* updated the MyWebsiteAdvisor Plugin Installer Page to include the option to remove the installer page and menu.
+* updated links to the plugin installer to use the search by author feature when the plugin installer is disabled.
+* added option to the help menu, 'More Free Plugins' section to enable and disable the 'MyWebsiteAdvisor' Plugins installer menu. 
+
 
 = 2.3.11 =
 * fixed attachment_field_add_watermark() so it always returns the $form_fields

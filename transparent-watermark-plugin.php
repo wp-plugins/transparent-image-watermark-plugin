@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.11";
+	private $version = "2.3.12";
 	
 	private $debug = false;
 	
@@ -480,11 +480,19 @@ class Transparent_Watermark_Plugin{
 			<p><a href='http://mywebsiteadvisor.com/support/'  target='_blank'>Plugin Support</a></p>
 			<p><b><a href='http://wordpress.org/support/view/plugin-reviews/transparent-image-watermark-plugin?rate=5#postform'  target='_blank'>Rate and Review This Plugin</a></b></p>";
 	
-		$more_plugins = "<p><b><a href='".admin_url()."plugins.php?page=MyWebsiteAdvisor' target='_blank' title='Install More Free Plugins from MyWebsiteAdvisor.com'>Install More Free Plugins!</a></b></p>
-			<p><a href='http://mywebsiteadvisor.com/tools/premium-wordpress-plugins/'  target='_blank'>Premium WordPress Plugins!</a></p>
+	
+		$enabled = get_option('mywebsiteadvisor_pluigin_installer_menu_disable');
+		if(!isset($enabled) || $enabled == 'true'){
+			$more_plugins = "<p><b><a href='".admin_url()."plugins.php?page=MyWebsiteAdvisor' target='_blank' title='Install More Free Plugins from MyWebsiteAdvisor.com!'>Install More Free Plugins!</a></b></p>";
+		}else{
+			$more_plugins = "<p><b><a href='".admin_url()."plugin-install.php?tab=search&type=author&s=MyWebsiteAdvisor' target='_blank' title='Install More Free Plugins from MyWebsiteAdvisor.com!'>Install More Free Plugins!</a></b></p>";
+		}
+			
+		$more_plugins .= "<p><a href='http://mywebsiteadvisor.com/tools/premium-wordpress-plugins/'  target='_blank'>Premium WordPress Plugins!</a></p>
 			<p><a href='http://mywebsiteadvisor.com/products-page/developer-wordpress-plugins/'  target='_blank'>Developer WordPress Plugins!</a></p>
 			<p><a href='http://profiles.wordpress.org/MyWebsiteAdvisor/'  target='_blank'>Free Plugins on Wordpress.org!</a></p>
 			<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/'  target='_blank'>Free Plugins on MyWebsiteAdvisor.com!</a></p>";
+					
 							
 		$follow_us = "<p><a href='http://facebook.com/MyWebsiteAdvisor/'  target='_blank'>Follow us on Facebook!</a></p>
 			<p><a href='http://twitter.com/MWebsiteAdvisor/'  target='_blank'>Follow us on Twitter!</a></p>
@@ -690,16 +698,78 @@ class Transparent_Watermark_Plugin{
 				'content' => $this->get_plugin_upgrades()		
 			));		
 			
+				
 					
+			
+			$disable_plugin_installer_nonce = wp_create_nonce("mywebsiteadvisor-plugin-installer-menu-disable");	
+		
+			$plugin_installer_ajax = " <script>
+				function update_mwa_display_plugin_installer_options(){
+					  
+						jQuery('#display_mwa_plugin_installer_label').text('Updating...');
+						
+						var option_checked = jQuery('#display_mywebsiteadvisor_plugin_installer_menu:checked').length > 0;
+					  
+						var ajax_data = {
+							'checked': option_checked,
+							'action': 'update_mwa_plugin_installer_menu_option', 
+							'security': '$disable_plugin_installer_nonce'
+						};
+						  
+						jQuery.ajax({
+							type: 'POST',
+							url:  ajaxurl,
+							data: ajax_data,
+							success: function(data){
+								if(data == 'true'){
+									jQuery('#display_mwa_plugin_installer_label').text(' MyWebsiteAdvisor Plugin Installer Menu Enabled!');
+								}
+								if(data == 'false'){
+									jQuery('#display_mwa_plugin_installer_label').text(' MyWebsiteAdvisor Plugin Installer Menu Disabled!');
+								}
+								//alert(data);
+								//location.reload();
+							}
+						});  
+				  }</script>";
+
+
+
+			$checked = "";
+			$enabled = get_option('mywebsiteadvisor_pluigin_installer_menu_disable');
+			if(!isset($enabled) || $enabled == 'true'){
+				$checked = "checked='checked'";
+				$content = "<h2>More Free Plugins from MyWebsiteAdvisor.com</h2><p>Install More Free Plugins from MyWebsiteAdvisor.com <a href='".admin_url()."plugins.php?page=MyWebsiteAdvisor' target='_blank'>Click here</a></p>";
+			}else{
+					$checked = "";
+				$content = "<h2>More Free Plugins from MyWebsiteAdvisor.com</h2><p>Install More Free Plugins from MyWebsiteAdvisor.com  <a href='".admin_url()."plugin-install.php?tab=search&type=author&s=MyWebsiteAdvisor' target='_blank'>Click here</a></p>";
+			}
+			
+			$content .=  $plugin_installer_ajax . "
+       	<p><input type='checkbox' $checked id='display_mywebsiteadvisor_plugin_installer_menu' name='display_mywebsiteadvisor_plugin_installer_menu' onclick='update_mwa_display_plugin_installer_options()' /> <label id='display_mwa_plugin_installer_label' for='display_mywebsiteadvisor_plugin_installer_menu' > Check here to display the MyWebsiteAdvisor Plugin Installer page in the Plugins menu.</label></p>";
+			
 			$screen->add_help_tab(array(
 				'id' => 'more-free-plugins',
 				'title' => "More Free Plugins",
-				'content' => "<h2>More Free Plugins from MyWebsiteAdvisor.com</h2><p>Install More Free Plugins from MyWebsiteAdvisor.com <a href='".admin_url()."plugins.php?page=MyWebsiteAdvisor' target='_blank'>Click here</a></p>"
+				'content' => $content
 			));
 			
 			
-			$screen->set_help_sidebar("<p>Please Visit us online for more Free WordPress Plugins!</p><p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p><br><p>Install more FREE WordPress Plugins from MyWebsiteAdvisor.com </p><p><a href='".admin_url()."plugins.php?page=MyWebsiteAdvisor' target='_blank'>Click here</a></p>");
 			
+			
+			$help_sidebar = "<p>Please Visit us online for more Free WordPress Plugins!</p>";
+			$help_sidebar .= "<p><a href='http://mywebsiteadvisor.com/tools/wordpress-plugins/' target='_blank'>MyWebsiteAdvisor.com</a></p>";
+			$help_sidebar .= "<br>";
+			$help_sidebar .= "<p>Install more FREE WordPress Plugins from MyWebsiteAdvisor.com </p>";
+			
+			$enabled = get_option('mywebsiteadvisor_pluigin_installer_menu_disable');
+			if(!isset($enabled) || $enabled == 'true'){
+				$help_sidebar .= "<p><a href='".admin_url()."plugins.php?page=MyWebsiteAdvisor' target='_blank'>Click here</a></p>";
+			}else{
+				$help_sidebar .= "<p><a href='".admin_url()."plugin-install.php?tab=search&type=author&s=MyWebsiteAdvisor' target='_blank'>Click here</a></p>";
+			}
+			
+			$screen->set_help_sidebar($help_sidebar);
 		//}
 	}
 	
