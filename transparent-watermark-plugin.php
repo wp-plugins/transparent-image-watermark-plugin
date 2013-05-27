@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.12";
+	private $version = "2.3.13";
 	
 	private $debug = false;
 	

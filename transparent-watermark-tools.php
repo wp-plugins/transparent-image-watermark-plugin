@@ -365,7 +365,10 @@ class Transparent_Watermark_Tools{
 			case 'image/jpeg':
 				return imagecreatefromjpeg($filepath);
 			case 'image/png':
-				return imagecreatefrompng($filepath);
+				$image = imagecreatefrompng($filepath);
+				imagealphablending($image, true);
+				imagesavealpha($image, true);
+				return $image;
 			case 'image/gif':
 				return imagecreatefromgif($filepath);
 			default:
