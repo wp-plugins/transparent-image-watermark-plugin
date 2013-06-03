@@ -4,7 +4,7 @@ Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, posts, Plugin, Page, Admin, Security, administration, automatic, media
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.13
+Stable tag: 2.3.14
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -202,6 +202,10 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 
 == Changelog ==
+
+= 2.3.14 =
+* Fixed .jpeg file extension issue, Added checkbox option to automatically watermark .jpeg images
+
 
 = 2.3.13 =
 * improved support for adding watermarks to PNG images

@@ -5,7 +5,7 @@
 class Transparent_Watermark_Plugin{
 
 	//plugin version number
-	private $version = "2.3.13";
+	private $version = "2.3.14";
 	
 	private $debug = false;
 	
@@ -357,6 +357,7 @@ class Transparent_Watermark_Plugin{
                     'type' => 'multicheck',
                     'options' => array(
                         'jpg' => '.JPG',
+						'jpeg' => '.JPEG',
                         'png' => '.PNG',
                         'gif' => '.GIF'
                     )
