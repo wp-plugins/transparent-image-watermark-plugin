@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Transparent Image Watermark
-Plugin URI: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
+Plugin URI: http://MyWebsiteAdvisor.com/plugins/transparent-image-watermark/
 Description: Add a Text or Image watermark to your uploaded images.
-Version: 2.3.14
+Version: 2.3.15
 Author: MyWebsiteAdvisor
 Author URI: http://MyWebsiteAdvisor.com
 */

@@ -3,8 +3,8 @@ Name: Transparent Image Watermark
 Contributors: MyWebsiteAdvisor, ChrisHurst
 Tags: Watermark, Images, Image, Picture, Pictures, Photo, Photos, Upload, Post, posts, Plugin, Page, Admin, Security, administration, automatic, media
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 2.3.14
+Tested up to: 4.1
+Stable tag: 2.3.15
 Donate link: http://MyWebsiteAdvisor.com/donations/
 
 
@@ -22,7 +22,7 @@ The watermark size is controlled as a percentage of the target image, 50% means 
 Watermarks are now removable with the new backup system, any images watermarked while the new backup system is enabled are able to be restored to the original image.
 
 
-<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -44,7 +44,7 @@ Developer Website: http://MyWebsiteAdvisor.com/
 
 Plugin Support: http://MyWebsiteAdvisor.com/support/
 
-Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
+Plugin Page: http://MyWebsiteAdvisor.com/plugins/transparent-image-watermark/
 
 Compare Watermark Plugins: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/
 
@@ -117,7 +117,7 @@ If you want to simply test this plugin, or think you may want to remove the wate
 
 We have a premium version of this plugin that adds the capability to manually add watermarks to images in the WordPress Media Library.
 
-<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -134,7 +134,7 @@ watermark features including:
 We have a premium version of this plugin that adds the capability to adjust the location of the watermarks.
 The position can be adjusted both vertically and horizontally.
 
-<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -155,7 +155,7 @@ That way the watermark image will be scaled down, which will work better than ma
 We also have a premium version of this plugin that adds the capability to resample the watermark image, rather than simply resize it.
 This results in significantly better looking watermarks.
 
-<a href="http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
+<a href="http://MyWebsiteAdvisor.com/plugins/transparent-image-watermark/">**Upgrade to Transparent Watermark Ultra**</a> for advanced
 watermark features including:
 
 * Manually Apply Watermarks to Images Previously Uploaded
@@ -178,7 +178,7 @@ Developer Website: http://MyWebsiteAdvisor.com/
 
 Plugin Support: http://MyWebsiteAdvisor.com/support/
 
-Plugin Page: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/transparent-image-watermark/
+Plugin Page: http://MyWebsiteAdvisor.com/plugins/transparent-image-watermark/
 
 Compare Watermark Plugins: http://MyWebsiteAdvisor.com/tools/wordpress-plugins/watermark-plugins-for-wordpress/
 
@@ -202,6 +202,14 @@ Video Tutorial: http://mywebsiteadvisor.com/learning/video-tutorials/transparent
 
 
 == Changelog ==
+
+
+
+= 2.3.15 =
+* tested for compatibility with WP 4.1
+* fixed issue with watermark settings image preview function
+* updated links in readme and plugin for support, updates, etc.
+
 
 = 2.3.14 =
 * Fixed .jpeg file extension issue, Added checkbox option to automatically watermark .jpeg images
